@@ -1,0 +1,88 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/EE457/lab2a
+Emux4
+Z1 w1549235607
+Z2 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+R0
+Z5 8mux4.vhd
+Z6 Fmux4.vhd
+l0
+L5
+V1dVeTX[gJCgkHKjjC5BND2
+!s100 KK@H=bjA5LLf?WeZmUAQ51
+Z7 OV;C;10.5b;63
+32
+Z8 !s110 1549319582
+!i10b 1
+Z9 !s108 1549319582.000000
+Z10 !s90 -reportprogress|300|mux4.vhd|mux4_tb.vhd|
+Z11 !s107 mux4_tb.vhd|mux4.vhd|
+!i113 1
+Z12 tExplicit 1 CvgOpt 0
+Alogic
+R2
+R3
+R4
+Z13 DEx4 work 4 mux4 0 22 1dVeTX[gJCgkHKjjC5BND2
+l15
+L14
+Z14 VeMHK9P:aXjfk[HL9Ai`eQ3
+Z15 !s100 di?T[Kbh2G_aie7iaPD1T2
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+Emux4_tb
+Z16 w1549231732
+R2
+R3
+R4
+R0
+Z17 8mux4_tb.vhd
+Z18 Fmux4_tb.vhd
+l0
+L24
+VBSOc>Ne`eORlG;U1dI4ZA3
+!s100 B`EeW78dZBiTEUBJX6Q7`1
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+Astimulus
+R2
+R3
+R4
+Z19 DEx4 work 7 mux4_tb 0 22 BSOc>Ne`eORlG;U1dI4ZA3
+l43
+L27
+Z20 Vmz>j4jhQ70jWE82FzY?4H3
+Z21 !s100 G3`]`:B;om]ZCEX?lRfTF3
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12

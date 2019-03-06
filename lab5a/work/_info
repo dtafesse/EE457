@@ -1,0 +1,88 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/EE457/lab5a
+Emult_control
+Z1 w1550277641
+Z2 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+R0
+Z5 8mult_control.vhd
+Z6 Fmult_control.vhd
+l0
+L24
+VI0>?@1@6kQ82^n6YX@<gg3
+!s100 Zlo=`6e2X0h>A28]1h:ni2
+Z7 OV;C;10.5b;63
+32
+Z8 !s110 1550277702
+!i10b 1
+Z9 !s108 1550277702.000000
+Z10 !s90 -reportprogress|300|mult_control.vhd|mult_control_tb.vhd|
+Z11 !s107 mult_control_tb.vhd|mult_control.vhd|
+!i113 1
+Z12 tExplicit 1 CvgOpt 0
+Alogic
+R2
+R3
+R4
+DEx4 work 12 mult_control 0 22 I0>?@1@6kQ82^n6YX@<gg3
+l51
+L40
+VTDK;?:z3TSczAO3LzEF_a0
+!s100 nGW?AGP=[jlHHBRomJUU73
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+Emult_control_tb
+Z13 w1549231732
+R2
+R3
+R4
+R0
+Z14 8mult_control_tb.vhd
+Z15 Fmult_control_tb.vhd
+l0
+L24
+VNUDbb:_>g^hCM@aFC?_Ye0
+!s100 7^;ImU3TG?;PV`4GGnkBo1
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+Astimulus
+R2
+R3
+R4
+DEx4 work 15 mult_control_tb 0 22 NUDbb:_>g^hCM@aFC?_Ye0
+l47
+L27
+VNeh5AAYz6`AiQR74?ZJ[T3
+!s100 ]@gH[Se<IZ8g8h8e3`:6D0
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12

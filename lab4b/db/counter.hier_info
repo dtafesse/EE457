@@ -1,0 +1,9 @@
+|counter
+clk => count[0].CLK
+clk => count[1].CLK
+aclr_n => count[0].ACLR
+aclr_n => count[1].ACLR
+count_out[0] <= count[0].DB_MAX_OUTPUT_PORT_TYPE
+count_out[1] <= count[1].DB_MAX_OUTPUT_PORT_TYPE
+
+

@@ -1,0 +1,16 @@
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.NUMERIC_STD.ALL;
+
+ENTITY mux IS
+	PORT(
+		dataa: IN unsigned (3 downto 0);
+		datab: IN unsigned (3 downto 0);
+		product: OUT unsigned (7 downto 0)
+	);
+END ENTITY mux;
+
+ARCHITECTURE logic Of mux IS
+BEGIN
+	product <= dataa * datab;
+END ARCHITECTURE logic;

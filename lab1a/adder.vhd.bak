@@ -1,0 +1,16 @@
+LIBRARY IEEE:
+USE IEEE.STD_LOGIC_1164.ALL:
+USE IEEE.NUMERIC_STD.ALL;
+
+ENTITY adder is 
+	PORT(
+		dataa : IN unsigned (15 downto 0);
+		datab : IN unsigned (15 downto 0);
+		sum: OUT unsigned (15 downto 0);
+	);
+END ENTITY adder;
+
+ARCHITECTURE logic Of adder IS
+BEGIN
+	sum <= dataa + datab;
+END ARCHITECTURE logic;
