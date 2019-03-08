@@ -111,9 +111,9 @@ ARCHITECTURE logic OF message_cntrl IS
 						else
 							next_state <= current_state;
 						end if;
-					WHEN j =>
+					WHEN i =>
 						if halt_shift = '1' then
-							next_state <= a;
+							next_state <= j;
 						else
 							next_state <= current_state;
 						end if;

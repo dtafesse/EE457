@@ -1,5 +1,5 @@
 Analysis & Synthesis report for DE1_SOC_golden_top
-Mon Mar 04 19:45:21 2019
+Thu Mar 07 19:49:51 2019
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -52,7 +52,7 @@ agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Mon Mar 04 19:45:21 2019       ;
+; Analysis & Synthesis Status     ; Successful - Thu Mar 07 19:49:50 2019       ;
 ; Quartus Prime Version           ; 16.1.0 Build 196 10/24/2016 SJ Lite Edition ;
 ; Revision Name                   ; DE1_SOC_golden_top                          ;
 ; Top-level Entity Name           ; de1_top                                     ;
@@ -172,8 +172,7 @@ agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
-;     Processors 3-4         ;   0.0%      ;
+;     Processors 2-4         ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -197,10 +196,10 @@ agreement for further details.
 ;                                             ;                ;
 ; Combinational ALUT usage for logic          ; 88             ;
 ;     -- 7 input functions                    ; 0              ;
-;     -- 6 input functions                    ; 26             ;
-;     -- 5 input functions                    ; 15             ;
-;     -- 4 input functions                    ; 6              ;
-;     -- <=3 input functions                  ; 41             ;
+;     -- 6 input functions                    ; 25             ;
+;     -- 5 input functions                    ; 16             ;
+;     -- 4 input functions                    ; 5              ;
+;     -- <=3 input functions                  ; 42             ;
 ;                                             ;                ;
 ; Dedicated logic registers                   ; 40             ;
 ;                                             ;                ;
@@ -210,7 +209,7 @@ agreement for further details.
 ;                                             ;                ;
 ; Maximum fan-out node                        ; clock_50~input ;
 ; Maximum fan-out                             ; 40             ;
-; Total fan-out                               ; 614            ;
+; Total fan-out                               ; 613            ;
 ; Average fan-out                             ; 2.34           ;
 +---------------------------------------------+----------------+
 
@@ -258,7 +257,7 @@ Encoding Type:  One-Hot
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 40    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 11    ;
+; Number of registers using Clock Enable       ; 12    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -270,7 +269,7 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------+
 ; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; Yes        ; |de1_top|gen_counter:one_half_second_counter|term           ;
 ; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; Yes        ; |de1_top|gen_counter:three_fourth_second_counter|i_count[1] ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; No         ; |de1_top|message_cntrl:msg_main|current_state               ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 16 LEs               ; 8 LEs                  ; No         ; |de1_top|message_cntrl:msg_main|current_state               ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------+
 
 
@@ -356,9 +355,9 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; arriav_ff             ; 40                          ;
-;     CLR               ; 5                           ;
+;     CLR               ; 4                           ;
 ;     CLR SCLR          ; 24                          ;
-;     ENA CLR           ; 11                          ;
+;     ENA CLR           ; 12                          ;
 ; arriav_lcell_comb     ; 92                          ;
 ;     arith             ; 24                          ;
 ;         1 data inputs ; 24                          ;
@@ -366,14 +365,14 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;         0 data inputs ; 1                           ;
 ;         1 data inputs ; 3                           ;
 ;         2 data inputs ; 3                           ;
-;         3 data inputs ; 14                          ;
-;         4 data inputs ; 6                           ;
-;         5 data inputs ; 15                          ;
-;         6 data inputs ; 26                          ;
+;         3 data inputs ; 15                          ;
+;         4 data inputs ; 5                           ;
+;         5 data inputs ; 16                          ;
+;         6 data inputs ; 25                          ;
 ; boundary_port         ; 67                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 3.30                        ;
-; Average LUT depth     ; 1.84                        ;
+; Average LUT depth     ; 1.81                        ;
 +-----------------------+-----------------------------+
 
 
@@ -392,7 +391,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-    Info: Processing started: Mon Mar 04 19:45:11 2019
+    Info: Processing started: Thu Mar 07 19:49:37 2019
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off DE1_base -c DE1_SOC_golden_top
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -445,9 +444,9 @@ Info (21057): Implemented 156 device resources after synthesis - the final resou
     Info (21059): Implemented 52 output pins
     Info (21061): Implemented 89 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 25 warnings
-    Info: Peak virtual memory: 4888 megabytes
-    Info: Processing ended: Mon Mar 04 19:45:21 2019
-    Info: Elapsed time: 00:00:10
-    Info: Total CPU time (on all processors): 00:00:22
+    Info: Peak virtual memory: 4870 megabytes
+    Info: Processing ended: Thu Mar 07 19:49:51 2019
+    Info: Elapsed time: 00:00:14
+    Info: Total CPU time (on all processors): 00:00:25
 
 

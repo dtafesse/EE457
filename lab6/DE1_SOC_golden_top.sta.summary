@@ -3,83 +3,83 @@ TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow 1100mV 85C Model Setup 'clock_50Mhz'
-Slack : 9.288
+Slack : 9.187
 TNS   : 0.000
 
 Type  : Slow 1100mV 85C Model Hold 'clock_50Mhz'
-Slack : 0.295
+Slack : 0.318
 TNS   : 0.000
 
 Type  : Slow 1100mV 85C Model Recovery 'clock_50Mhz'
-Slack : 12.463
+Slack : 12.728
 TNS   : 0.000
 
 Type  : Slow 1100mV 85C Model Removal 'clock_50Mhz'
-Slack : 4.129
+Slack : 4.417
 TNS   : 0.000
 
 Type  : Slow 1100mV 85C Model Minimum Pulse Width 'clock_50Mhz'
-Slack : 9.218
+Slack : 9.229
 TNS   : 0.000
 
 Type  : Slow 1100mV 0C Model Setup 'clock_50Mhz'
-Slack : 6.767
+Slack : 7.123
 TNS   : 0.000
 
 Type  : Slow 1100mV 0C Model Hold 'clock_50Mhz'
-Slack : 0.279
+Slack : 0.296
 TNS   : 0.000
 
 Type  : Slow 1100mV 0C Model Recovery 'clock_50Mhz'
-Slack : 13.105
+Slack : 13.341
 TNS   : 0.000
 
 Type  : Slow 1100mV 0C Model Removal 'clock_50Mhz'
-Slack : 3.561
+Slack : 3.853
 TNS   : 0.000
 
 Type  : Slow 1100mV 0C Model Minimum Pulse Width 'clock_50Mhz'
-Slack : 9.283
+Slack : 9.286
 TNS   : 0.000
 
 Type  : Fast 1100mV 85C Model Setup 'clock_50Mhz'
-Slack : 10.852
+Slack : 10.999
 TNS   : 0.000
 
 Type  : Fast 1100mV 85C Model Hold 'clock_50Mhz'
-Slack : 0.175
+Slack : 0.188
 TNS   : 0.000
 
 Type  : Fast 1100mV 85C Model Recovery 'clock_50Mhz'
-Slack : 14.712
+Slack : 14.829
 TNS   : 0.000
 
 Type  : Fast 1100mV 85C Model Removal 'clock_50Mhz'
-Slack : 2.436
+Slack : 2.664
 TNS   : 0.000
 
 Type  : Fast 1100mV 85C Model Minimum Pulse Width 'clock_50Mhz'
-Slack : 9.101
+Slack : 9.104
 TNS   : 0.000
 
 Type  : Fast 1100mV 0C Model Setup 'clock_50Mhz'
-Slack : 13.186
+Slack : 13.108
 TNS   : 0.000
 
 Type  : Fast 1100mV 0C Model Hold 'clock_50Mhz'
-Slack : 0.159
+Slack : 0.169
 TNS   : 0.000
 
 Type  : Fast 1100mV 0C Model Recovery 'clock_50Mhz'
-Slack : 15.028
+Slack : 15.139
 TNS   : 0.000
 
 Type  : Fast 1100mV 0C Model Removal 'clock_50Mhz'
-Slack : 2.261
+Slack : 2.466
 TNS   : 0.000
 
 Type  : Fast 1100mV 0C Model Minimum Pulse Width 'clock_50Mhz'
-Slack : 9.064
+Slack : 9.067
 TNS   : 0.000
 
 ------------------------------------------------------------

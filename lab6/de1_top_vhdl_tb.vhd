@@ -67,7 +67,7 @@ begin
 		key    <= "1111";       -- default state on the board, and reset
 		wait for 100*clk_cycle; -- you may need to extend this to duration, i.e. change 100 to a larger value
 		
-		-- halt the sliding
+		-- -- halt the sliding
 		key <= "1011";
 		wait for 100*clk_cycle; -- you may need to extend this to duration, i.e. change 100 to a larger value
 
@@ -79,15 +79,15 @@ begin
 
 		-- go back to clock wise
 		-- change message to dudEs 
-		sw <= "0000000001";
+		sw <= "0000000010";
 		key <= "1111"; 	
 		wait for 100*clk_cycle; -- you may need to extend this to duration, i.e. change 100 to a larger value
 	
-		-- halt the sliding 
+		-- -- halt the sliding 
 		key <= "1011";
 		wait for 100*clk_cycle; -- you may need to extend this to duration, i.e. change 100 to a larger value
 		
-		-- go counter clock wise
+		-- -- go counter clock wise
 		key <= "1101";
 		wait for 100*clk_cycle; -- you may need to extend this to duration, i.e. change 100 to a larger value
 		
