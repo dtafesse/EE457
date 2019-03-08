@@ -1,8 +1,8 @@
 .tmp.drivedownload/
 **/db
 **/incremental_db
-**/word
+**/work
 
 db/
 incremental_db/
-word/
+work/
