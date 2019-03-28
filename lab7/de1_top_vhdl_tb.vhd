@@ -65,9 +65,37 @@ begin
 		
 		-- defualt state
 		key    <= "1111";       -- default state on the board, and reset
-		wait for 2000*clk_cycle; -- you may need to extend this to duration, i.e. change 100 to a larger value
+		wait for 5000*clk_cycle; -- you may need to extend this to duration, i.e. change 100 to a larger value
 	
-		
+		-- -- high traffic mode
+		-- sw     <= "0100000000"; -- sw(8) = 1
+		-- key    <= "1111";       -- default state
+		-- wait for 5000*clk_cycle; -- you may need to extend this to duration, i.e. change 100 to a larger value
+
+		-- night mode on
+		sw     <= "1000000000"; -- sw(9) = 1
+		key    <= "1111";       -- default state on the board, and reset
+		wait for 5000*clk_cycle; -- you may need to extend this to duration, i.e. change 100 to a larger value
+	
+		-- night mode off
+		sw     <= "0000000000"; -- sw(9) = 1
+		key    <= "1111";       -- default state on the board, and reset
+		wait for 5000*clk_cycle; -- you may need to extend this to duration, i.e. change 100 to a larger value
+	
+		-- error mode on
+		sw     <= "0000000000"; -- sw(9) = 1
+		key    <= "0111";       -- default state on the board, and reset
+		wait for 5000*clk_cycle; -- you may need to extend this to duration, i.e. change 100 to a larger value
+
+		-- error mode off - first reset on
+		sw     <= "0000000000"; -- sw(9) = 1
+		key    <= "1110";       -- default state on the board, and reset
+		wait for 5000*clk_cycle; -- you may need to extend this to duration, i.e. change 100 to a larger value
+
+		-- error mode off - secondly reset off 
+		key    <= "1111";       -- default state on the board, and reset
+		wait for 5000*clk_cycle; -- you may need to extend this to duration, i.e. change 100 to a larger value
+
 		report "current time = " & time'image(now);
 		assert false report "this is the end of simulation" severity failure; -- simulation stops when it hits thist statement
    	end process;

@@ -35,36 +35,12 @@ architecture struct of de1_top is
 	signal enable_pulse_every_one_second     : std_logic; -- for flash-r or y
 	signal one_sec_count_value					: std_logic_vector(1 downto 0); -- 2 bits 
 
-	-- define signals to be used for NS
-	signal enable_pulse_seven_seconds     : std_logic; -- red <= ew(green + yellow)
-	signal enable_pulse_seven_half_seconds     : std_logic; -- ns <= green SW == 0
-	signal enable_pulse_ten_seconds     : std_logic; -- ns <= green SW == 1
-	signal enable_pulse_one_point_five_seconds     : std_logic; -- ns <= yellow
-
-	signal seven_sec_count_value					: std_logic_vector(4 downto 0); -- 5 bit for 5 bit counter
-	signal seven_half_sec_count_value					: std_logic_vector(4 downto 0); -- 5 bit for 5 bit counter
-	signal ten_sec_count_value					: std_logic_vector(5 downto 0); -- 6 bit for 6 bit counter
-	signal one_point_five_sec_count_value					: std_logic_vector(2 downto 0); -- 3 bit for 3 bit counter
-
-	-- define signals to be used for EW
-	signal enable_pulse_nine_seconds     : std_logic; -- red <= nw(green + yellow) with SW8 - 0
-	signal enable_pulse_eleven_half_seconds     : std_logic; -- red <= nw(green + yellow) with SW8 - 1
-	signal enable_pulse_five_fourth_seconds     : std_logic; -- ew <= green
-	signal enable_pulse_one_point_seven_five_seconds     : std_logic; -- ew <= yellow
-
-	signal nine_sec_count_value					: std_logic_vector(5 downto 0); -- 6 bit for 6 bit counter
-	signal eleven_half_sec_count_value					: std_logic_vector(5 downto 0); -- 6 bit for 6 bit counter
-	signal five_fourth_sec_count_value					: std_logic_vector(4 downto 0); -- 5 bit for 5 bit counter
-	signal one_point_seven_five_sec_count_value					: std_logic_vector(2 downto 0); -- 3 bit for 3 bit counter
-
 	-- *******
 	signal reset_n                       : std_logic;
-	signal sw8                       : std_logic;
-	signal selected_green_ns_timer_value : std_logic;
-	signal selected_red_ew_timer_value : std_logic;
 	signal load_counter                  : std_logic;
-	signal nw_state_input 					: std_logic_vector(3 downto 0); 
-	signal ew_state_input						: std_logic_vector(3 downto 0); 
+	signal ew_start_signal						: std_logic; 
+	
+	signal main_one_second_counter: std_logic_vector(0 downto 0);
 
 	-- define the component
 	component gen_counter is
@@ -84,19 +60,19 @@ architecture struct of de1_top is
 	
 	component traffic_ns_cntrl is 
 		PORT (
-			clk, reset_a, red_timer, green_timer, yellow_timer, flash_yellow_timer, night_mode, error_mode : IN STD_LOGIC;
-			east_west_state: IN STD_LOGIC_VECTOR(3 downto 0);
+			clk, reset_a, green_timer_switch, night_mode, error_mode : IN STD_LOGIC;
+			time_counter: IN STD_LOGIC_VECTOR(0 downto 0);
 			hex_0 : OUT STD_LOGIC_VECTOR(6 downto 0);
-			nw_state_out: OUT STD_LOGIC_VECTOR(3 downto 0) 
+			start_signal_message: OUT STD_LOGIC
 		);
 	end component traffic_ns_cntrl;
 		
 	component traffic_ew_cntrl is
 		PORT (
-			clk, reset_a, red_timer, green_timer, yellow_timer, flash_red_timer, night_mode, error_mode: IN STD_LOGIC;
-			north_south_state: IN STD_LOGIC_VECTOR(3 downto 0);
-			hex_5 : OUT STD_LOGIC_VECTOR(6 downto 0);
-			ew_state_out: OUT STD_LOGIC_VECTOR(3 downto 0) 
+			clk, reset_a, red_timer_switch, night_mode, error_mode: IN STD_LOGIC;
+			time_counter: IN STD_LOGIC_VECTOR(0 downto 0);
+			start: IN STD_LOGIC;
+			hex_5 : OUT STD_LOGIC_VECTOR(6 downto 0)
 		);
 	end component traffic_ew_cntrl;
 		
@@ -142,173 +118,32 @@ architecture struct of de1_top is
 			term	 => enable_pulse_every_one_second -- this signal will pulse for 1 clock cycle when the cunter roles over
 		);
 			
-			-- this counter will count 1.5 seconds.			
-		one_point_five_second_counter : gen_counter 
-		generic map (
-			wide => 3,  -- created a 3 bit counter (max count would be 5) which will hold the max, max: 0, 1, 2, 3, 4, 5
-			max  => 5   --.25 * 6 = 1.5 seconds thus 6 is count, if count is 6, then max is count - 1 = 5
-			)
-		port map (
-			clk	 => clock_50,
-			data	 => (others => '0'),
-			load	 => load_counter,
-			enable   => enable_pulse_every_one_fourth_second,
-			reset_n	 => reset_n,
-			count	 => one_point_five_sec_count_value, -- we are not using this signal
-			term	 => enable_pulse_one_point_five_seconds
-		);
 
-		-- this counter will count 1.75 seconds.			
-		one_point_seven_five_second_counter : gen_counter 
-		generic map (
-			wide => 3,  -- created a 3 bit counter (max count would be 5) which will hold the max, max: 0, 1, 2, 3, 4, 5, 6
-			max  => 6   --.25 * 7 = 1.75 seconds thus 7 is count, if count is 7, then max is count - 1 = 6
-			)
-		port map (
-			clk	 => clock_50,
-			data	 => (others => '0'),
-			load	 => load_counter,
-			enable   => enable_pulse_every_one_fourth_second,
-			reset_n	 => reset_n,
-			count	 => one_point_seven_five_sec_count_value, -- we are not using this signal
-			term	 => enable_pulse_one_point_seven_five_seconds
-		);
-
-		-- this counter will count 5.25 seconds.			
-		five_fourth_counter : gen_counter 
-		generic map (
-			wide => 5,  -- created a 5 bit counter (max count would be 5) which will hold the max, max: 0, 1,..., 20
-			max  => 20   --.25 * 21 = 5.25 seconds thus 21 is count, if count is 21, then max is count - 1 = 20
-			)
-		port map (
-			clk	 => clock_50,
-			data	 => (others => '0'),
-			load	 => load_counter,
-			enable   => enable_pulse_every_one_fourth_second,
-			reset_n	 => reset_n,
-			count	 => five_fourth_sec_count_value, -- we are not using this signal
-			term	 => enable_pulse_five_fourth_seconds
-		);
-
-		-- this counter will count 7 seconds.			
-		seven_second_counter : gen_counter 
-		generic map (
-			wide => 5,  -- created a 5 bit counter (max count would be 5) which will hold the max, max: 0, 1,..., 27
-			max  => 27   --.25 * 28 = 7 seconds thus 28 is count, if count is 28, then max is count - 1 = 27
-			)
-		port map (
-			clk	 => clock_50,
-			data	 => (others => '0'),
-			load	 => load_counter,
-			enable   => enable_pulse_every_one_fourth_second,
-			reset_n	 => reset_n,
-			count	 => seven_sec_count_value, -- we are not using this signal
-			term	 => enable_pulse_seven_seconds
-		);
-
-		-- this counter will count 7.5 seconds.			
-		seven_half_second_counter : gen_counter 
-		generic map (
-			wide => 5,  -- created a 5 bit counter (max count would be 5) which will hold the max, max: 0, 1,..., 29
-			max  => 29   --.25 * 30 = 7 seconds thus 30 is count, if count is 30, then max is count - 1 = 29
-			)
-		port map (
-			clk	 => clock_50,
-			data	 => (others => '0'),
-			load	 => load_counter,
-			enable   => enable_pulse_every_one_fourth_second,
-			reset_n	 => reset_n,
-			count	 => seven_half_sec_count_value, -- we are not using this signal
-			term	 => enable_pulse_seven_half_seconds
-		);
-
-		-- this counter will count 9 seconds.			
-		nine_second_counter : gen_counter 
-		generic map (
-			wide => 6,  -- created a 6 bit counter (max count would be 35) which will hold the max, max: 0, 1,..., 35
-			max  => 35   --.25 * 36 = 9 seconds thus 36 is count, if count is 36, then max is count - 1 = 35
-			)
-		port map (
-			clk	 => clock_50,
-			data	 => (others => '0'),
-			load	 => load_counter,
-			enable   => enable_pulse_every_one_fourth_second,
-			reset_n	 => reset_n,
-			count	 => nine_sec_count_value, -- we are not using this signal
-			term	 => enable_pulse_nine_seconds
-		);
-
-		-- this counter will count 10 seconds.			
-		ten_second_counter : gen_counter 
-		generic map (
-			wide => 6,  -- created a 6 bit counter (max count would be 39) which will hold the max, max: 0, 1,..., 39
-			max  => 39   --.25 * 40 = 10 seconds thus 40 is count, if count is 40, then max is count - 1 = 39
-			)
-		port map (
-			clk	 => clock_50,
-			data	 => (others => '0'),
-			load	 => load_counter,
-			enable   => enable_pulse_every_one_fourth_second,
-			reset_n	 => reset_n,
-			count	 => ten_sec_count_value, -- we are not using this signal
-			term	 => enable_pulse_ten_seconds
-		);
-
-		-- this counter will count 11.5 seconds.			
-		eleven_half_second_counter : gen_counter 
-		generic map (
-			wide => 6,  -- created a 6 bit counter (max count would be 5) which will hold the max, max: 0, 1,..., 43
-			max  => 43   --.25 * 44 = 11.5 seconds thus 44 is count, if count is 44, then max is count - 1 = 43
-			)
-		port map (
-			clk	 => clock_50,
-			data	 => (others => '0'),
-			load	 => load_counter,
-			enable   => enable_pulse_every_one_fourth_second,
-			reset_n	 => reset_n,
-			count	 => eleven_half_sec_count_value, -- we are not using this signal
-			term	 => enable_pulse_eleven_half_seconds 
-		);
-		
-		sw8 <= SW(8);
-		
-		PROCESS(sw8, enable_pulse_ten_seconds, enable_pulse_seven_half_seconds, enable_pulse_nine_seconds, enable_pulse_eleven_half_seconds)
-		Begin
-		 	if sw8 = '1' then
-				selected_green_ns_timer_value <= enable_pulse_ten_seconds;
-				selected_red_ew_timer_value <= enable_pulse_eleven_half_seconds;
-			else
-				selected_green_ns_timer_value <= enable_pulse_seven_half_seconds;
-				selected_red_ew_timer_value <= enable_pulse_nine_seconds;
-		 	end if;
-		END PROCESS;
-
+		main_one_second_counter(0) <= enable_pulse_every_one_second;
+	
 		ns_main: traffic_ns_cntrl PORT MAP ( 
 			clk => clock_50,
 			reset_a => reset_n,
-			red_timer => enable_pulse_seven_seconds, 
-			green_timer => selected_green_ns_timer_value, 
-			yellow_timer => enable_pulse_one_point_five_seconds, 
-			flash_yellow_timer => enable_pulse_every_one_second,
+			green_timer_switch => SW(8), 
 			night_mode => SW(9),
 			error_mode => KEY(3),
-			east_west_state => ew_state_input(3 downto 0),
+			time_counter => main_one_second_counter,
 			hex_0 => hex0,
-			nw_state_out => nw_state_input
+			start_signal_message => ew_start_signal
 		);
 
 		ew_main: traffic_ew_cntrl PORT MAP ( 
 			clk => clock_50,
 			reset_a => reset_n,
-			red_timer => selected_red_ew_timer_value, 
-			green_timer => enable_pulse_five_fourth_seconds, 
-			yellow_timer => enable_pulse_one_point_seven_five_seconds, 
-			flash_red_timer => enable_pulse_every_one_second,
+			red_timer_switch => SW(8), 
+			--red_timer => selected_red_ew_timer_value, 
+			--green_timer => enable_pulse_five_fourth_seconds, 
+			--yellow_timer => enable_pulse_one_point_seven_five_seconds, 
+			time_counter => main_one_second_counter,
 			night_mode => SW(9),
 			error_mode => KEY(3),
-			north_south_state => nw_state_input(3 downto 0),
-			hex_5 => hex5,
-			ew_state_out => ew_state_input
+			start => ew_start_signal,
+			hex_5 => hex5
 		);
 
 end architecture; -- end the design
