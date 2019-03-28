@@ -40,11 +40,12 @@ ARCHITECTURE logic OF traffic_ew_cntrl IS
     signal next_state: state_type;
     signal error_mode_active: std_logic;
     signal count: integer := 0;
+    signal night_mode_activated: std_logic;
 	
 	BEGIN
 		-- Create sequential process to control state transitions by making current_state equal to next state on
 		--	rising edge transitions; Use asynchronous clear control
-        PROCESS (clk, reset_a, time_counter, red_timer_switch, night_mode, error_mode, start)
+        PROCESS (clk, reset_a, time_counter, red_timer_switch, night_mode, error_mode, start, night_mode_activated)
 				variable temp_time_counter : integer;	
 		  BEGIN
             temp_time_counter := to_integer(unsigned(time_counter));
@@ -58,24 +59,24 @@ ARCHITECTURE logic OF traffic_ew_cntrl IS
                         if count < 29 then -- .25 * 30 = 7.5 seconds, count = 30, max 30 - 1 = 29 sec
                             current_state <= red;
                             count <= count + 1; 
-                        elsif count > 29 and count < 49 then  -- green between 7.5 seconds and 7.5+5.25 seconds (12.75) 
+                        elsif count < 49 then  -- green between 7.5 seconds and 7.5+5.25 seconds (12.75) 
                             --.25 * 21 = 5.25 seconds thus 21 is count, max is count - 1 = 20
                             -- therefore 7.5 + 5.25 (12.75) -> 29 + 20 = 49 
-                            next_state <= green;
+                            current_state <= green;
                             count <= count + 1;
-                        elsif count > 49 and count < 55 then -- yellow between 12.75 seconds and 12.75 + 1.75 (14.5) seconds = 
+                        elsif count < 55 then -- yellow between 12.75 seconds and 12.75 + 1.75 (14.5) seconds = 
                             --.25 * 7 = 1.75 seconds thus 7 is count, if count is 7, then max is count - 1 = 6
                             -- 12.75 + 1.75 (14.5) -> 49 + 6 = 55
-                            if night_mode = '1' or error_mode = '0' then
-                                current_state <= flash_r;
-                            elsif night_mode = '0' then -- night mode off go back to red
-                            -- should only get out of error mode by reset, so won't have an if statement for it
-                                current_state <= red;
-                                count <= count + 1; 
-                            else
-                                current_state <= yellow;
-                                count <= count + 1;
-                            end if;
+                            current_state <= yellow;
+                            count <= count + 1;
+                        elsif count = 55 and (night_mode = '1' or error_mode = '0') then
+                            current_state <= flash_r;
+                            night_mode_activated <= '1';
+                        elsif count = 55 and night_mode_activated = '1' then -- night mode off go back to red
+                        -- should only get out of error mode by reset, so won't have an if statement for it
+                            current_state <= red;
+                            count <= 0;
+                            night_mode_activated <= '0'; 
                         else -- gone through a cycle, rest counter
                             count <= 0;
                         end if;
@@ -83,24 +84,24 @@ ARCHITECTURE logic OF traffic_ew_cntrl IS
                         if count < 35  then -- .25 * 36 = 9 seconds thus 36 is count, if count is 36, then max is count - 1 = 35
                             current_state <= red;
                             count <= count + 1; 
-                        elsif count > 35 and count < 55 then  -- green between 9 seconds and 9+5.25 seconds (14.25)
+                        elsif count < 55 then  -- green between 9 seconds and 9+5.25 seconds (14.25)
                             --.25 * 21 = 5.25 seconds thus 21 is count, max is count - 1 = 20
                             -- therefore 9 + 5.25 (14.25) -> 35 + 20 = 49 
-                            next_state <= green;
+                            current_state <= green;
                             count <= count + 1;
-                        elsif count > 55 and count < 61  then -- yellow between 14.75 seconds and 14.75 + 1.75 (16.5) seconds = 
+                        elsif count < 61  then -- yellow between 14.75 seconds and 14.75 + 1.75 (16.5) seconds = 
                             --.25 * 7 = 1.75 seconds thus 7 is count, if count is 7, then max is count - 1 = 6
                             -- 14.75 + 1.75 (16.5) -> 55 + 6 = 55
-                            if night_mode = '1' or error_mode = '0' then
-                                current_state <= flash_r;
-                            elsif night_mode = '0' then -- night mode off go back to red
-                            -- should only get out of error mode by reset, so won't have an if statement for it
-                                current_state <= red;
-                                count <= count + 1; 
-                            else
-                                current_state <= yellow;
-                                count <= count + 1;
-                            end if;
+                            current_state <= yellow;
+                            count <= count + 1;
+                        elsif count = 61 and (night_mode = '1' or error_mode = '0') then
+                            current_state <= flash_r;
+                            night_mode_activated <= '1';
+                        elsif count = 61 and night_mode_activated = '1' then -- night mode off go back to red
+                        -- should only get out of error mode by reset, so won't have an if statement for it
+                            current_state <= red;
+                            count <= 0;
+                            night_mode_activated <= '0'; 
                         else -- gone through a cycle, rest counter
                             count <= 0;
                         end if;

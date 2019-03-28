@@ -1,5 +1,5 @@
 Analysis & Synthesis report for DE1_SOC_golden_top
-Wed Mar 27 21:36:12 2019
+Wed Mar 27 22:13:01 2019
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -37,7 +37,7 @@ agreement for further details.
 +---------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                              ;
 +-----------------------------+---------------------------------------------+
-; Analysis & Synthesis Status ; Failed - Wed Mar 27 21:36:12 2019           ;
+; Analysis & Synthesis Status ; Failed - Wed Mar 27 22:13:01 2019           ;
 ; Quartus Prime Version       ; 16.1.0 Build 196 10/24/2016 SJ Lite Edition ;
 ; Revision Name               ; DE1_SOC_golden_top                          ;
 ; Top-level Entity Name       ; DE1_top                                     ;
@@ -161,7 +161,7 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-    Info: Processing started: Wed Mar 27 21:36:03 2019
+    Info: Processing started: Wed Mar 27 22:12:52 2019
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off DE1_base -c DE1_SOC_golden_top
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -177,12 +177,12 @@ Info (12021): Found 2 design units, including 1 entities, in source file de1_top
 Info (12021): Found 2 design units, including 1 entities, in source file traffic_ew_cntrl.vhd
     Info (12022): Found design unit 1: traffic_ew_cntrl-logic File: C:/EE457/lab7/traffic_ew_cntrl.vhd Line: 33
     Info (12023): Found entity 1: traffic_ew_cntrl File: C:/EE457/lab7/traffic_ew_cntrl.vhd Line: 5
-Error (10500): VHDL syntax error at traffic_ns_cntrl.vhd(97) near text "!";  expecting ")", or "," File: C:/EE457/lab7/traffic_ns_cntrl.vhd Line: 97
+Error (10500): VHDL syntax error at traffic_ns_cntrl.vhd(89) near text "<=";  expecting "then" File: C:/EE457/lab7/traffic_ns_cntrl.vhd Line: 89
 Info (12021): Found 0 design units, including 0 entities, in source file traffic_ns_cntrl.vhd
 Error: Quartus Prime Analysis & Synthesis was unsuccessful. 1 error, 1 warning
-    Error: Peak virtual memory: 4858 megabytes
-    Error: Processing ended: Wed Mar 27 21:36:13 2019
-    Error: Elapsed time: 00:00:10
-    Error: Total CPU time (on all processors): 00:00:22
+    Error: Peak virtual memory: 4854 megabytes
+    Error: Processing ended: Wed Mar 27 22:13:01 2019
+    Error: Elapsed time: 00:00:09
+    Error: Total CPU time (on all processors): 00:00:21
 
 

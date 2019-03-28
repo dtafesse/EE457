@@ -59,64 +59,66 @@ ARCHITECTURE logic OF traffic_ns_cntrl IS
                 current_state <= red;
                 error_mode_active <= '0'; -- reset the capture and hold of the reset key if it was pressed
                 count <= 0;
-            if error_mode = '1' then
-                -- set up error mode for capture and hold
-                error_mode_active <= '1';
-            end if;
+            -- elsif error_mode = '1' then
+            --     -- set up error mode for capture and hold
+            --     error_mode_active <= '1';
             elsif rising_edge(clk) then
                 if temp_time_counter = 1 then
-                    if count < 27  then -- 27 -> 0.25 * 28 = 7 seconds has passed, count is 28, thus max is 27
-                        current_state <= red;
-                        count <= count + 1; 
-                    elsif count >= 27 then -- between 7 seconds and (7+10=17) or (7+7.5=14.5) in green
-                        if green_timer_switch = '1' then
-                            if count < 66 then -- 39 = 0.25*40 = 10 seconds, count = 39, max 39 - 1, therefore 7+10 sec (17 sec) -> 27+39 = 66 
-                                current_state <= green;
-                                count <= count + 1;
-                                start_signal_message <= '1';
-                            elsif count = 66 and (night_mode = '1' or error_mode = '0') then
-                                -- flash yellow
-                                current_state <= flash_y;
-                                night_mode_activated <= '1';
-                            elsif (count = 66 and night_mode_activated = '1') then 
-                                -- should only get out of error mode by reset, so won't have an if statement for it
-                                -- leaving night mode should take you back to green so reset the count back to end of red   
-                                current_state <= green;
-                                count <= 27; 
-                                night_mode_activated <= '0';
-                            elsif count < 71 then  -- between 17 seconds and (17+1.5 = 18.5) seconds - in yellow, 1.5 seconds
-                                -- .25 * 6 = 1.5 seconds, count = 6, max is 6-1 = 5, therefore 17 + 1.5 -> 66 + 5 = 71
-                                current_state <= yellow;
-                                count <= count + 1; 
-                            elsif count >= 71 then 
-                                -- went through one cycle, reset the count back to zero;
-                                count <= 0; 
-                            end if;
-                        else
-                            if count < 56 then -- .25 * 30 = 7.5 seconds, count = 30, max 30 - 1 = 29, therefore 7 + 7.5 (14.5) -> 27+29 = 56
-                                current_state <= green;
-                                count <= count + 1; 
-                                start_signal_message <= '1';
-                            elsif count = 56 and (night_mode = '1' or error_mode = '0') then
-                                -- flash yellow
-                                current_state <= flash_y;
-                                night_mode_activated <= '1';
-                            elsif (count = 56 and night_mode_activated = '1') then 
-                                -- should only get out of error mode by reset, so won't have an if statement for it
-                                -- leaving night mode should take you back to green so reset the count back to end of red   
-                                current_state <= green;
-                                count <= 27; 
-                                night_mode_activated <= '0';
-                            elsif count < 61 then -- between 14.5 seconds and (14.5+1.5 = 16) seconds - in yellow, 1.5 seconds
-                                -- .25 * 6 = 1.5 seconds, count = 6, max is 6-1 = 5, therefore 14.5 + 1.5 -> 56 + 5 = 61
-                                current_state <= yellow;
-                                count <= count + 1; 
-                            elsif count >= 61 then 
-                                -- went through one cycle, reset the count back to zero;
-                                count <= 0; 
-                            end if;
-                        end if; 
-                    end if;  
+                    if green_timer_switch = '1' then -- green is 10 seconds
+                        if count < 39 then -- 39 = 0.25*40 = 10 seconds, count = 40, max 39,
+                            current_state <= green;
+                            count <= count + 1;
+                            start_signal_message <= '1';
+                        elsif count = 39 and (night_mode = '1' or error_mode = '0') then
+                            -- flash yellow
+                            current_state <= flash_y;
+                            night_mode_activated <= '1';
+                        elsif (count = 39 and night_mode_activated = '1') then 
+                            -- should only get out of error mode by reset, so won't have an if statement for it
+                            -- leaving night mode should take you back to green so reset the count back to end of red   
+                            current_state <= green;
+                            count <= 0; 
+                            night_mode_activated <= '0';
+                        elsif count < 44 then  -- in yellow, 1.5 seconds so up to 11.5 seconds
+                            -- .25 * 6 = 1.5 seconds, count = 6, max is 6-1 = 5, therefore 10 sec + 1.5 sec -> 39 + 5 = 44
+                            current_state <= yellow;
+                            count <= count + 1; 
+                        elsif count > 71 then -- in red for 7 seconds so up to 18.5 seconds
+                            -- 0.25 * 28 = 7 seconds has passed, count is 28, thus max is 27, 11.5 sec + 7 sec = 44 + 27= 71
+                            current_state <= red;
+                            count <= count + 1; 
+                        elsif count >= 71 then 
+                            -- went through one cycle, reset the count back to zero;
+                            count <= 0; 
+                        end if;
+                    else
+                        if count < 29 then -- .25 * 30 = 7.5 seconds, count = 30, max 30 - 1 = 29
+                            current_state <= green;
+                            count <= count + 1; 
+                            start_signal_message <= '1';
+                        elsif count = 29 and (night_mode = '1' or error_mode = '0') then
+                            -- flash yellow
+                            current_state <= flash_y;
+                            night_mode_activated <= '1';
+                        elsif (count = 29 and night_mode_activated = '1') then 
+                            -- should only get out of error mode by reset, so won't have an if statement for it
+                            -- leaving night mode should take you back to green so reset the count back to end of red   
+                            current_state <= green;
+                            count <= 0; 
+                            night_mode_activated <= '0';
+                        elsif count < 34 then -- in yellow, 1.5 seconds
+                            -- .25 * 6 = 1.5 seconds, count = 6, max is 6-1 = 5, therefore 7.5 + 1.5 -> 29 + 5 = 34
+                            current_state <= yellow;
+                            count <= count + 1; 
+                        elsif count < 61 then 
+                            -- 0.25 * 28 = 7 seconds has passed, count is 28, thus max is 27, 9 seconds + 7 seconds = 44 + 27= 71
+                            current_state <= red;
+                            count <= count + 1; 
+                        elsif count >= 61 then 
+                            -- went through one cycle, reset the count back to zero;
+                            count <= 0; 
+                        end if;
+                    end if; 
                 end if;
 			end if;
         END PROCESS;
