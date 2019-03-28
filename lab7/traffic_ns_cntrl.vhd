@@ -19,8 +19,6 @@ ENTITY traffic_ns_cntrl IS
 		-- will shift left when KEY(3) is high (pressed and held) === 0 => error mode
 		error_mode: IN STD_LOGIC;
            
-        east_west_state: IN STD_LOGIC_VECTOR(3 downto 0);
-        
 		-- seven segment outputs for north-south
 		hex_0 : OUT STD_LOGIC_VECTOR(6 downto 0); -- right most
 
@@ -28,7 +26,7 @@ ENTITY traffic_ns_cntrl IS
         time_counter: IN STD_LOGIC_VECTOR(0 downto 0);
 
 		-- message out to east-west controller
-		nw_state_out: OUT STD_LOGIC_VECTOR(3 downto 0) 
+        start_signal_message : OUT STD_LOGIC
 	);
 END ENTITY traffic_ns_cntrl;
 
@@ -45,69 +43,84 @@ ARCHITECTURE logic OF traffic_ns_cntrl IS
     signal error_mode_active: std_logic;
     --signal red_timer, green_timer, yellow_timer, flash_yellow_timer: STD_LOGIC; 
     signal count: integer := 0;
-   
-	BEGIN
+    signal night_mode_activated: std_logic;
+
+    BEGIN
+        
+
 		-- Create sequential process to control state transitions by making current_state equal to next state on
 		--	rising edge transitions; Use asynchronous clear control
-		PROCESS (clk, reset_a, time_counter, green_timer_switch, night_mode, error_mode, east_west_state)
-			variable temp_time_counter : integer;		
+		PROCESS (clk, reset_a, time_counter, green_timer_switch, night_mode, error_mode_active, night_mode_activated)
+            variable temp_time_counter : integer;		
         BEGIN
-			temp_time_counter := to_integer(unsigned(time_counter));
+            temp_time_counter := to_integer(unsigned(time_counter));
+
 			if reset_a = '0' then
                 current_state <= red;
                 error_mode_active <= '0'; -- reset the capture and hold of the reset key if it was pressed
-                nw_state_out(3 downto 0) <= "0001";
                 count <= 0;
+            if error_mode = '1' then
+                -- set up error mode for capture and hold
+                error_mode_active <= '1';
+            end if;
             elsif rising_edge(clk) then
                 if temp_time_counter = 1 then
-                    if count < 27 and (east_west_state = "1000" or east_west_state = "1001" or starting_signal = "1") then -- 27 -> 0.25 * 28 = 7 seconds has passed, count is 28, thus max is 27
+                    if count < 27  then -- 27 -> 0.25 * 28 = 7 seconds has passed, count is 28, thus max is 27
                         current_state <= red;
-                        nw_state_out(3 downto 0) <= "0001";
                         count <= count + 1; 
-                    elsif count > 27 and east_west_state = "0110" then -- between 7 seconds and (7+10=17) or (7+7.5=14.5) in green
+                    elsif count >= 27 then -- between 7 seconds and (7+10=17) or (7+7.5=14.5) in green
                         if green_timer_switch = '1' then
                             if count < 66 then -- 39 = 0.25*40 = 10 seconds, count = 39, max 39 - 1, therefore 7+10 sec (17 sec) -> 27+39 = 66 
-                                if night_mode = '1' or error_mode = '0' then -- flash yellow
-                                    current_state <= flash_y;
-                                    nw_state_out(3 downto 0) <= "0100";
-                                elsif night_mode = '0' then
-                                    -- should only get out of error mode by reset, so won't have an if statement for it
-                                    current_state <= green;
-                                    nw_state_out(3 downto 0) <= "0010";
-                                    count <= count + 1;
-                                end if;
+                                current_state <= green;
+                                count <= count + 1;
+                                start_signal_message <= '1';
+                            elsif count = 66 and (night_mode = '1' or error_mode = '0') then
+                                -- flash yellow
+                                current_state <= flash_y;
+                                night_mode_activated <= '1';
+                            elsif (count = 66 and night_mode_activated = '1') then 
+                                -- should only get out of error mode by reset, so won't have an if statement for it
+                                -- leaving night mode should take you back to green so reset the count back to end of red   
+                                current_state <= green;
+                                count <= 27; 
+                                night_mode_activated <= '0';
                             elsif count < 71 then  -- between 17 seconds and (17+1.5 = 18.5) seconds - in yellow, 1.5 seconds
                                 -- .25 * 6 = 1.5 seconds, count = 6, max is 6-1 = 5, therefore 17 + 1.5 -> 66 + 5 = 71
                                 current_state <= yellow;
-                                nw_state_out(3 downto 0) <= "0011";
                                 count <= count + 1; 
+                            elsif count >= 71 then 
+                                -- went through one cycle, reset the count back to zero;
+                                count <= 0; 
                             end if;
                         else
                             if count < 56 then -- .25 * 30 = 7.5 seconds, count = 30, max 30 - 1 = 29, therefore 7 + 7.5 (14.5) -> 27+29 = 56
-                                if night_mode = '1' or error_mode = '0' then -- flash yellow
-                                    current_state <= flash_y;
-                                    nw_state_out(3 downto 0) <= "0100";
-                                elsif night_mode = '0' then
-                                    -- should only get out of error mode by reset, so won't have an if statement for it
-                                    current_state <= green;
-                                    nw_state_out(3 downto 0) <= "0010";
-                                    count <= count + 1;        
-                                end if;
+                                current_state <= green;
+                                count <= count + 1; 
+                                start_signal_message <= '1';
+                            elsif count = 56 and (night_mode = '1' or error_mode = '0') then
+                                -- flash yellow
+                                current_state <= flash_y;
+                                night_mode_activated <= '1';
+                            elsif (count = 56 and night_mode_activated = '1') then 
+                                -- should only get out of error mode by reset, so won't have an if statement for it
+                                -- leaving night mode should take you back to green so reset the count back to end of red   
+                                current_state <= green;
+                                count <= 27; 
+                                night_mode_activated <= '0';
                             elsif count < 61 then -- between 14.5 seconds and (14.5+1.5 = 16) seconds - in yellow, 1.5 seconds
                                 -- .25 * 6 = 1.5 seconds, count = 6, max is 6-1 = 5, therefore 14.5 + 1.5 -> 56 + 5 = 61
                                 current_state <= yellow;
-                                nw_state_out(3 downto 0) <= "0011";
                                 count <= count + 1; 
+                            elsif count >= 61 then 
+                                -- went through one cycle, reset the count back to zero;
+                                count <= 0; 
                             end if;
                         end if; 
-                    else
-                        -- went through one cycle, reset the count back to zero;
-                        count <= 0; 
                     end if;  
                 end if;
 			end if;
-		END PROCESS;
-		
+        END PROCESS;
+        
 		PROCESS(current_state)
 		BEGIN
             CASE current_state IS

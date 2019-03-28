@@ -38,8 +38,7 @@ architecture struct of de1_top is
 	-- *******
 	signal reset_n                       : std_logic;
 	signal load_counter                  : std_logic;
-	signal nw_state_input 					: std_logic_vector(3 downto 0); 
-	signal ew_state_input						: std_logic_vector(3 downto 0); 
+	signal ew_start_signal						: std_logic; 
 	
 	signal main_one_second_counter: std_logic_vector(0 downto 0);
 
@@ -63,9 +62,8 @@ architecture struct of de1_top is
 		PORT (
 			clk, reset_a, green_timer_switch, night_mode, error_mode : IN STD_LOGIC;
 			time_counter: IN STD_LOGIC_VECTOR(0 downto 0);
-			east_west_state: IN STD_LOGIC_VECTOR(3 downto 0);
 			hex_0 : OUT STD_LOGIC_VECTOR(6 downto 0);
-			nw_state_out: OUT STD_LOGIC_VECTOR(3 downto 0) 
+			start_signal_message: OUT STD_LOGIC
 		);
 	end component traffic_ns_cntrl;
 		
@@ -73,9 +71,8 @@ architecture struct of de1_top is
 		PORT (
 			clk, reset_a, red_timer_switch, night_mode, error_mode: IN STD_LOGIC;
 			time_counter: IN STD_LOGIC_VECTOR(0 downto 0);
-			north_south_state: IN STD_LOGIC_VECTOR(3 downto 0);
-			hex_5 : OUT STD_LOGIC_VECTOR(6 downto 0);
-			ew_state_out: OUT STD_LOGIC_VECTOR(3 downto 0) 
+			start: IN STD_LOGIC;
+			hex_5 : OUT STD_LOGIC_VECTOR(6 downto 0)
 		);
 	end component traffic_ew_cntrl;
 		
@@ -130,10 +127,9 @@ architecture struct of de1_top is
 			green_timer_switch => SW(8), 
 			night_mode => SW(9),
 			error_mode => KEY(3),
-			east_west_state => ew_state_input(3 downto 0),
 			time_counter => main_one_second_counter,
 			hex_0 => hex0,
-			nw_state_out => nw_state_input
+			start_signal_message => ew_start_signal
 		);
 
 		ew_main: traffic_ew_cntrl PORT MAP ( 
@@ -146,9 +142,8 @@ architecture struct of de1_top is
 			time_counter => main_one_second_counter,
 			night_mode => SW(9),
 			error_mode => KEY(3),
-			north_south_state => nw_state_input(3 downto 0),
-			hex_5 => hex5,
-			ew_state_out => ew_state_input
+			start => ew_start_signal,
+			hex_5 => hex5
 		);
 
 end architecture; -- end the design
