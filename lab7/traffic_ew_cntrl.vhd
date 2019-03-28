@@ -61,23 +61,23 @@ ARCHITECTURE logic OF traffic_ew_cntrl IS
                 end if;
                 if temp_time_counter = 1 then 
                     if red_timer_switch = '1' then -- red is held for 11.5 seconds
-                        if count < 29 then -- .25 * 30 = 7.5 seconds, count = 30, max 30 - 1 = 29 sec
+                        if count < 44 then -- .25 * 45 = 11.5 seconds, max = 45 - 1 = 44 - 11.5 sec
                             current_state <= red;
                             count <= count + 1; 
-                        elsif count < 49 then  -- green between 7.5 seconds and 7.5+5.25 seconds (12.75) 
+                        elsif count < 64 then  -- green between 11.5 seconds and 11.5+5.25 seconds (16.75) 
                             --.25 * 21 = 5.25 seconds thus 21 is count, max is count - 1 = 20
-                            -- therefore 7.5 + 5.25 (12.75) -> 29 + 20 = 49 
+                            -- therefore 11.5 + 5.25 -> 44 + 20 = 64 
                             current_state <= green;
                             count <= count + 1;
-                        elsif count < 55 then -- yellow between 12.75 seconds and 12.75 + 1.75 (14.5) seconds = 
+                        elsif count < 69 then -- yellow between 16.75 seconds and 16.75 + 1.75 (18.5) seconds = 
                             --.25 * 7 = 1.75 seconds thus 7 is count, if count is 7, then max is count - 1 = 6
-                            -- 12.75 + 1.75 (14.5) -> 49 + 6 = 55
+                            -- 16.75 + 1.75 -> 66 + 6 = 55
                             current_state <= yellow;
                             count <= count + 1;
-                        elsif count = 55 and (night_mode = '1' or error_mode_active = '1') then
+                        elsif count = 69 and (night_mode = '1' or error_mode_active = '1') then
                             current_state <= flash_r;
                             night_mode_activated <= '1';
-                        elsif count = 55 and night_mode_activated = '1' then -- night mode off go back to red
+                        elsif count = 69 and night_mode_activated = '1' then -- night mode off go back to red
                         -- should only get out of error mode by reset, so won't have an if statement for it
                             current_state <= red;
                             count <= 0;
