@@ -50,7 +50,7 @@ ARCHITECTURE logic OF traffic_ns_cntrl IS
 
 		-- Create sequential process to control state transitions by making current_state equal to next state on
 		--	rising edge transitions; Use asynchronous clear control
-		PROCESS (clk, reset_a, time_counter, green_timer_switch, night_mode, error_mode_active, night_mode_activated)
+		PROCESS (clk, reset_a, time_counter, green_timer_switch, night_mode, error_mode, error_mode_active, night_mode_activated)
             variable temp_time_counter : integer;		
         BEGIN
             temp_time_counter := to_integer(unsigned(time_counter));
@@ -63,13 +63,18 @@ ARCHITECTURE logic OF traffic_ns_cntrl IS
             --     -- set up error mode for capture and hold
             --     error_mode_active <= '1';
             elsif rising_edge(clk) then
+                if error_mode = '0' then
+                    -- key(3) was pushed down
+                    -- set up error mode for capture and hold
+                    error_mode_active <= '1';
+                end if;
                 if temp_time_counter = 1 then
                     if green_timer_switch = '1' then -- green is 10 seconds
                         if count < 39 then -- 39 = 0.25*40 = 10 seconds, count = 40, max 39,
                             current_state <= green;
                             count <= count + 1;
                             start_signal_message <= '1';
-                        elsif count = 39 and (night_mode = '1' or error_mode = '0') then
+                        elsif count = 39 and (night_mode = '1' or error_mode_active = '1') then
                             -- flash yellow
                             current_state <= flash_y;
                             night_mode_activated <= '1';
@@ -83,7 +88,7 @@ ARCHITECTURE logic OF traffic_ns_cntrl IS
                             -- .25 * 6 = 1.5 seconds, count = 6, max is 6-1 = 5, therefore 10 sec + 1.5 sec -> 39 + 5 = 44
                             current_state <= yellow;
                             count <= count + 1; 
-                        elsif count > 71 then -- in red for 7 seconds so up to 18.5 seconds
+                        elsif count < 71 then -- in red for 7 seconds so up to 18.5 seconds
                             -- 0.25 * 28 = 7 seconds has passed, count is 28, thus max is 27, 11.5 sec + 7 sec = 44 + 27= 71
                             current_state <= red;
                             count <= count + 1; 

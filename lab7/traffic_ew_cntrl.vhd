@@ -45,7 +45,7 @@ ARCHITECTURE logic OF traffic_ew_cntrl IS
 	BEGIN
 		-- Create sequential process to control state transitions by making current_state equal to next state on
 		--	rising edge transitions; Use asynchronous clear control
-        PROCESS (clk, reset_a, time_counter, red_timer_switch, night_mode, error_mode, start, night_mode_activated)
+        PROCESS (clk, reset_a, time_counter, red_timer_switch, night_mode, error_mode, error_mode_active, start, night_mode_activated)
 				variable temp_time_counter : integer;	
 		  BEGIN
             temp_time_counter := to_integer(unsigned(time_counter));
@@ -54,8 +54,13 @@ ARCHITECTURE logic OF traffic_ew_cntrl IS
                 error_mode_active <= '0'; -- reset the capture and hold of the reset key if it was pressed
                 count <= 0;
             elsif rising_edge(clk) then
+                if error_mode = '0' then
+                    -- key(3) was pushed down
+                    -- set up error mode for capture and hold
+                    error_mode_active <= '1';
+                end if;
                 if temp_time_counter = 1 then 
-                    if red_timer_switch = '1' then -- red is held for 7.5 seconds
+                    if red_timer_switch = '1' then -- red is held for 11.5 seconds
                         if count < 29 then -- .25 * 30 = 7.5 seconds, count = 30, max 30 - 1 = 29 sec
                             current_state <= red;
                             count <= count + 1; 
@@ -69,7 +74,7 @@ ARCHITECTURE logic OF traffic_ew_cntrl IS
                             -- 12.75 + 1.75 (14.5) -> 49 + 6 = 55
                             current_state <= yellow;
                             count <= count + 1;
-                        elsif count = 55 and (night_mode = '1' or error_mode = '0') then
+                        elsif count = 55 and (night_mode = '1' or error_mode_active = '1') then
                             current_state <= flash_r;
                             night_mode_activated <= '1';
                         elsif count = 55 and night_mode_activated = '1' then -- night mode off go back to red
