@@ -23,10 +23,7 @@ ENTITY traffic_ns_cntrl IS
 		hex_0 : OUT STD_LOGIC_VECTOR(6 downto 0); -- right most
 
         -- one second counter, goes high every one second 
-        time_counter: IN STD_LOGIC_VECTOR(0 downto 0);
-
-		-- message out to east-west controller
-        start_signal_message : OUT STD_LOGIC
+        time_counter: IN STD_LOGIC_VECTOR(0 downto 0)
 	);
 END ENTITY traffic_ns_cntrl;
 
@@ -59,9 +56,7 @@ ARCHITECTURE logic OF traffic_ns_cntrl IS
                 current_state <= red;
                 error_mode_active <= '0'; -- reset the capture and hold of the reset key if it was pressed
                 count <= 0;
-            -- elsif error_mode = '1' then
-            --     -- set up error mode for capture and hold
-            --     error_mode_active <= '1';
+                night_mode_activated <= '0';
             elsif rising_edge(clk) then
                 if error_mode = '0' then
                     -- key(3) was pushed down
@@ -73,7 +68,6 @@ ARCHITECTURE logic OF traffic_ns_cntrl IS
                         if count < 39 then -- 39 = 0.25*40 = 10 seconds, count = 40, max 39,
                             current_state <= green;
                             count <= count + 1;
-                            start_signal_message <= '1';
                         elsif count = 39 and (night_mode = '1' or error_mode_active = '1') then
                             -- flash yellow
                             current_state <= flash_y;
@@ -100,7 +94,6 @@ ARCHITECTURE logic OF traffic_ns_cntrl IS
                         if count < 29 then -- .25 * 30 = 7.5 seconds, count = 30, max 30 - 1 = 29
                             current_state <= green;
                             count <= count + 1; 
-                            start_signal_message <= '1';
                         elsif count = 29 and (night_mode = '1' or error_mode = '0') then
                             -- flash yellow
                             current_state <= flash_y;

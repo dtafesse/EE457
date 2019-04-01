@@ -18,8 +18,6 @@ ENTITY traffic_ew_cntrl IS
 		-- will shift left when KEY(3) is high (pressed and held) === 0 => error mode
 		error_mode: IN STD_LOGIC;
            
-        start: IN STD_LOGIC;
-
         -- one second counter, goes high every one second 
         time_counter: IN STD_LOGIC_VECTOR(0 downto 0);
         
@@ -45,7 +43,7 @@ ARCHITECTURE logic OF traffic_ew_cntrl IS
 	BEGIN
 		-- Create sequential process to control state transitions by making current_state equal to next state on
 		--	rising edge transitions; Use asynchronous clear control
-        PROCESS (clk, reset_a, time_counter, red_timer_switch, night_mode, error_mode, error_mode_active, start, night_mode_activated)
+        PROCESS (clk, reset_a, time_counter, red_timer_switch, night_mode, error_mode, error_mode_active, night_mode_activated)
 				variable temp_time_counter : integer;	
 		  BEGIN
             temp_time_counter := to_integer(unsigned(time_counter));
@@ -53,6 +51,7 @@ ARCHITECTURE logic OF traffic_ew_cntrl IS
                 current_state <= red;
                 error_mode_active <= '0'; -- reset the capture and hold of the reset key if it was pressed
                 count <= 0;
+                night_mode_activated <= '0';
             elsif rising_edge(clk) then
                 if error_mode = '0' then
                     -- key(3) was pushed down
