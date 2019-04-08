@@ -1,5 +1,5 @@
 TimeQuest Timing Analyzer report for DE1_SOC_golden_top
-Thu Mar 21 15:29:23 2019
+Mon Apr 01 19:31:45 2019
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -99,14 +99,14 @@ agreement for further details.
 ; Number detected on machine ; 8           ;
 ; Maximum allowed            ; 4           ;
 ;                            ;             ;
-; Average used               ; 1.08        ;
+; Average used               ; 1.06        ;
 ; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   2.8%      ;
-;     Processor 3            ;   2.7%      ;
-;     Processor 4            ;   2.7%      ;
+;     Processor 2            ;   2.1%      ;
+;     Processor 3            ;   2.0%      ;
+;     Processor 4            ;   2.0%      ;
 +----------------------------+-------------+
 
 
@@ -115,7 +115,7 @@ agreement for further details.
 +---------------+--------+--------------------------+
 ; SDC File Path ; Status ; Read at                  ;
 +---------------+--------+--------------------------+
-; de1_top.sdc   ; OK     ; Thu Mar 21 15:29:18 2019 ;
+; de1_top.sdc   ; OK     ; Mon Apr 01 19:31:38 2019 ;
 +---------------+--------+--------------------------+
 
 
@@ -128,13 +128,13 @@ agreement for further details.
 +-------------+------+--------+-----------+-------+--------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+--------------+
 
 
-+--------------------------------------------------+
-; Slow 1100mV 85C Model Fmax Summary               ;
-+-----------+-----------------+-------------+------+
-; Fmax      ; Restricted Fmax ; Clock Name  ; Note ;
-+-----------+-----------------+-------------+------+
-; 97.25 MHz ; 97.25 MHz       ; clock_50Mhz ;      ;
-+-----------+-----------------+-------------+------+
++---------------------------------------------------+
+; Slow 1100mV 85C Model Fmax Summary                ;
++------------+-----------------+-------------+------+
+; Fmax       ; Restricted Fmax ; Clock Name  ; Note ;
++------------+-----------------+-------------+------+
+; 106.34 MHz ; 106.34 MHz      ; clock_50Mhz ;      ;
++------------+-----------------+-------------+------+
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
 
@@ -144,13 +144,13 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 HTML report is unavailable in plain text report export.
 
 
-+-------------------------------------+
-; Slow 1100mV 85C Model Setup Summary ;
-+-------------+-------+---------------+
-; Clock       ; Slack ; End Point TNS ;
-+-------------+-------+---------------+
-; clock_50Mhz ; 9.717 ; 0.000         ;
-+-------------+-------+---------------+
++--------------------------------------+
+; Slow 1100mV 85C Model Setup Summary  ;
++-------------+--------+---------------+
+; Clock       ; Slack  ; End Point TNS ;
++-------------+--------+---------------+
+; clock_50Mhz ; 10.596 ; 0.000         ;
++-------------+--------+---------------+
 
 
 +-------------------------------------+
@@ -158,7 +158,7 @@ HTML report is unavailable in plain text report export.
 +-------------+-------+---------------+
 ; Clock       ; Slack ; End Point TNS ;
 +-------------+-------+---------------+
-; clock_50Mhz ; 0.321 ; 0.000         ;
+; clock_50Mhz ; 0.363 ; 0.000         ;
 +-------------+-------+---------------+
 
 
@@ -167,7 +167,7 @@ HTML report is unavailable in plain text report export.
 +-------------+--------+-----------------+
 ; Clock       ; Slack  ; End Point TNS   ;
 +-------------+--------+-----------------+
-; clock_50Mhz ; 15.282 ; 0.000           ;
+; clock_50Mhz ; 13.618 ; 0.000           ;
 +-------------+--------+-----------------+
 
 
@@ -176,7 +176,7 @@ HTML report is unavailable in plain text report export.
 +-------------+-------+-----------------+
 ; Clock       ; Slack ; End Point TNS   ;
 +-------------+-------+-----------------+
-; clock_50Mhz ; 1.078 ; 0.000           ;
+; clock_50Mhz ; 0.945 ; 0.000           ;
 +-------------+-------+-----------------+
 
 
@@ -185,7 +185,7 @@ HTML report is unavailable in plain text report export.
 +-------------+-------+-----------------------------+
 ; Clock       ; Slack ; End Point TNS               ;
 +-------------+-------+-----------------------------+
-; clock_50Mhz ; 9.216 ; 0.000                       ;
+; clock_50Mhz ; 9.227 ; 0.000                       ;
 +-------------+-------+-----------------------------+
 
 
@@ -200,7 +200,7 @@ No synchronizer chains to report.
 +------------+-----------------+-------------+------+
 ; Fmax       ; Restricted Fmax ; Clock Name  ; Note ;
 +------------+-----------------+-------------+------+
-; 100.34 MHz ; 100.34 MHz      ; clock_50Mhz ;      ;
+; 109.73 MHz ; 109.73 MHz      ; clock_50Mhz ;      ;
 +------------+-----------------+-------------+------+
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
@@ -210,7 +210,7 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +-------------+--------+---------------+
 ; Clock       ; Slack  ; End Point TNS ;
 +-------------+--------+---------------+
-; clock_50Mhz ; 10.034 ; 0.000         ;
+; clock_50Mhz ; 10.887 ; 0.000         ;
 +-------------+--------+---------------+
 
 
@@ -219,7 +219,7 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +-------------+-------+---------------+
 ; Clock       ; Slack ; End Point TNS ;
 +-------------+-------+---------------+
-; clock_50Mhz ; 0.307 ; 0.000         ;
+; clock_50Mhz ; 0.366 ; 0.000         ;
 +-------------+-------+---------------+
 
 
@@ -228,7 +228,7 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +-------------+--------+----------------+
 ; Clock       ; Slack  ; End Point TNS  ;
 +-------------+--------+----------------+
-; clock_50Mhz ; 12.691 ; 0.000          ;
+; clock_50Mhz ; 14.220 ; 0.000          ;
 +-------------+--------+----------------+
 
 
@@ -237,7 +237,7 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +-------------+-------+----------------+
 ; Clock       ; Slack ; End Point TNS  ;
 +-------------+-------+----------------+
-; clock_50Mhz ; 3.569 ; 0.000          ;
+; clock_50Mhz ; 0.879 ; 0.000          ;
 +-------------+-------+----------------+
 
 
@@ -246,7 +246,7 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +-------------+-------+----------------------------+
 ; Clock       ; Slack ; End Point TNS              ;
 +-------------+-------+----------------------------+
-; clock_50Mhz ; 9.277 ; 0.000                      ;
+; clock_50Mhz ; 9.284 ; 0.000                      ;
 +-------------+-------+----------------------------+
 
 
@@ -261,7 +261,7 @@ No synchronizer chains to report.
 +-------------+--------+---------------+
 ; Clock       ; Slack  ; End Point TNS ;
 +-------------+--------+---------------+
-; clock_50Mhz ; 13.466 ; 0.000         ;
+; clock_50Mhz ; 14.218 ; 0.000         ;
 +-------------+--------+---------------+
 
 
@@ -270,7 +270,7 @@ No synchronizer chains to report.
 +-------------+-------+---------------+
 ; Clock       ; Slack ; End Point TNS ;
 +-------------+-------+---------------+
-; clock_50Mhz ; 0.178 ; 0.000         ;
+; clock_50Mhz ; 0.196 ; 0.000         ;
 +-------------+-------+---------------+
 
 
@@ -279,7 +279,7 @@ No synchronizer chains to report.
 +-------------+--------+-----------------+
 ; Clock       ; Slack  ; End Point TNS   ;
 +-------------+--------+-----------------+
-; clock_50Mhz ; 14.198 ; 0.000           ;
+; clock_50Mhz ; 15.429 ; 0.000           ;
 +-------------+--------+-----------------+
 
 
@@ -288,7 +288,7 @@ No synchronizer chains to report.
 +-------------+-------+-----------------+
 ; Clock       ; Slack ; End Point TNS   ;
 +-------------+-------+-----------------+
-; clock_50Mhz ; 2.506 ; 0.000           ;
+; clock_50Mhz ; 0.561 ; 0.000           ;
 +-------------+-------+-----------------+
 
 
@@ -297,7 +297,7 @@ No synchronizer chains to report.
 +-------------+-------+-----------------------------+
 ; Clock       ; Slack ; End Point TNS               ;
 +-------------+-------+-----------------------------+
-; clock_50Mhz ; 9.100 ; 0.000                       ;
+; clock_50Mhz ; 9.104 ; 0.000                       ;
 +-------------+-------+-----------------------------+
 
 
@@ -312,7 +312,7 @@ No synchronizer chains to report.
 +-------------+--------+---------------+
 ; Clock       ; Slack  ; End Point TNS ;
 +-------------+--------+---------------+
-; clock_50Mhz ; 14.025 ; 0.000         ;
+; clock_50Mhz ; 14.662 ; 0.000         ;
 +-------------+--------+---------------+
 
 
@@ -321,7 +321,7 @@ No synchronizer chains to report.
 +-------------+-------+---------------+
 ; Clock       ; Slack ; End Point TNS ;
 +-------------+-------+---------------+
-; clock_50Mhz ; 0.169 ; 0.000         ;
+; clock_50Mhz ; 0.186 ; 0.000         ;
 +-------------+-------+---------------+
 
 
@@ -330,7 +330,7 @@ No synchronizer chains to report.
 +-------------+--------+----------------+
 ; Clock       ; Slack  ; End Point TNS  ;
 +-------------+--------+----------------+
-; clock_50Mhz ; 16.422 ; 0.000          ;
+; clock_50Mhz ; 15.669 ; 0.000          ;
 +-------------+--------+----------------+
 
 
@@ -339,7 +339,7 @@ No synchronizer chains to report.
 +-------------+-------+----------------+
 ; Clock       ; Slack ; End Point TNS  ;
 +-------------+-------+----------------+
-; clock_50Mhz ; 0.699 ; 0.000          ;
+; clock_50Mhz ; 0.509 ; 0.000          ;
 +-------------+-------+----------------+
 
 
@@ -348,7 +348,7 @@ No synchronizer chains to report.
 +-------------+-------+----------------------------+
 ; Clock       ; Slack ; End Point TNS              ;
 +-------------+-------+----------------------------+
-; clock_50Mhz ; 9.064 ; 0.000                      ;
+; clock_50Mhz ; 9.066 ; 0.000                      ;
 +-------------+-------+----------------------------+
 
 
@@ -358,16 +358,16 @@ No synchronizer chains to report.
 No synchronizer chains to report.
 
 
-+-----------------------------------------------------------------------------+
-; Multicorner Timing Analysis Summary                                         ;
-+------------------+-------+-------+----------+---------+---------------------+
-; Clock            ; Setup ; Hold  ; Recovery ; Removal ; Minimum Pulse Width ;
-+------------------+-------+-------+----------+---------+---------------------+
-; Worst-case Slack ; 9.717 ; 0.169 ; 12.691   ; 0.699   ; 9.064               ;
-;  clock_50Mhz     ; 9.717 ; 0.169 ; 12.691   ; 0.699   ; 9.064               ;
-; Design-wide TNS  ; 0.0   ; 0.0   ; 0.0      ; 0.0     ; 0.0                 ;
-;  clock_50Mhz     ; 0.000 ; 0.000 ; 0.000    ; 0.000   ; 0.000               ;
-+------------------+-------+-------+----------+---------+---------------------+
++------------------------------------------------------------------------------+
+; Multicorner Timing Analysis Summary                                          ;
++------------------+--------+-------+----------+---------+---------------------+
+; Clock            ; Setup  ; Hold  ; Recovery ; Removal ; Minimum Pulse Width ;
++------------------+--------+-------+----------+---------+---------------------+
+; Worst-case Slack ; 10.596 ; 0.186 ; 13.618   ; 0.509   ; 9.066               ;
+;  clock_50Mhz     ; 10.596 ; 0.186 ; 13.618   ; 0.509   ; 9.066               ;
+; Design-wide TNS  ; 0.0    ; 0.0   ; 0.0      ; 0.0     ; 0.0                 ;
+;  clock_50Mhz     ; 0.000  ; 0.000 ; 0.000    ; 0.000   ; 0.000               ;
++------------------+--------+-------+----------+---------+---------------------+
 
 
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -436,6 +436,7 @@ No synchronizer chains to report.
 ; Pin      ; I/O Standard ; 10-90 Rise Time ; 90-10 Fall Time ;
 +----------+--------------+-----------------+-----------------+
 ; key[1]   ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
+; key[2]   ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
 ; sw[0]    ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
 ; sw[1]    ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
 ; sw[2]    ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
@@ -449,7 +450,6 @@ No synchronizer chains to report.
 ; sw[8]    ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
 ; sw[9]    ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
 ; key[3]   ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
-; key[2]   ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
 +----------+--------------+-----------------+-----------------+
 
 
@@ -698,7 +698,7 @@ No synchronizer chains to report.
 +-------------+-------------+----------+----------+----------+----------+
 ; From Clock  ; To Clock    ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
 +-------------+-------------+----------+----------+----------+----------+
-; clock_50Mhz ; clock_50Mhz ; 1447     ; 0        ; 0        ; 0        ;
+; clock_50Mhz ; clock_50Mhz ; 27047    ; 0        ; 0        ; 0        ;
 +-------------+-------------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
@@ -708,7 +708,7 @@ Entries labeled "false path" only account for clock-to-clock false paths and not
 +-------------+-------------+----------+----------+----------+----------+
 ; From Clock  ; To Clock    ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
 +-------------+-------------+----------+----------+----------+----------+
-; clock_50Mhz ; clock_50Mhz ; 1447     ; 0        ; 0        ; 0        ;
+; clock_50Mhz ; clock_50Mhz ; 27047    ; 0        ; 0        ; 0        ;
 +-------------+-------------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
@@ -718,7 +718,7 @@ Entries labeled "false path" only account for clock-to-clock false paths and not
 +-------------+-------------+----------+----------+----------+----------+
 ; From Clock  ; To Clock    ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
 +-------------+-------------+----------+----------+----------+----------+
-; clock_50Mhz ; clock_50Mhz ; 85       ; 0        ; 0        ; 0        ;
+; clock_50Mhz ; clock_50Mhz ; 128      ; 0        ; 0        ; 0        ;
 +-------------+-------------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
@@ -728,7 +728,7 @@ Entries labeled "false path" only account for clock-to-clock false paths and not
 +-------------+-------------+----------+----------+----------+----------+
 ; From Clock  ; To Clock    ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
 +-------------+-------------+----------+----------+----------+----------+
-; clock_50Mhz ; clock_50Mhz ; 85       ; 0        ; 0        ; 0        ;
+; clock_50Mhz ; clock_50Mhz ; 128      ; 0        ; 0        ; 0        ;
 +-------------+-------------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
@@ -751,7 +751,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; Property                        ; Setup ; Hold ;
 +---------------------------------+-------+------+
 ; Illegal Clocks                  ; 0     ; 0    ;
-; Unconstrained Clocks            ; 2     ; 2    ;
+; Unconstrained Clocks            ; 0     ; 0    ;
 ; Unconstrained Input Ports       ; 0     ; 0    ;
 ; Unconstrained Input Port Paths  ; 0     ; 0    ;
 ; Unconstrained Output Ports      ; 0     ; 0    ;
@@ -759,15 +759,13 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 +---------------------------------+-------+------+
 
 
-+-------------------------------------------------------------------------------------------+
-; Clock Status Summary                                                                      ;
-+------------------------------------------------------+-------------+------+---------------+
-; Target                                               ; Clock       ; Type ; Status        ;
-+------------------------------------------------------+-------------+------+---------------+
-; clock_50                                             ; clock_50Mhz ; Base ; Constrained   ;
-; gen_counter:one_point_five_second_counter|term       ;             ; Base ; Unconstrained ;
-; gen_counter:one_point_seven_five_second_counter|term ;             ; Base ; Unconstrained ;
-+------------------------------------------------------+-------------+------+---------------+
++---------------------------------------------+
+; Clock Status Summary                        ;
++----------+-------------+------+-------------+
+; Target   ; Clock       ; Type ; Status      ;
++----------+-------------+------+-------------+
+; clock_50 ; clock_50Mhz ; Base ; Constrained ;
++----------+-------------+------+-------------+
 
 
 +------------------------------------+
@@ -776,14 +774,13 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime TimeQuest Timing Analyzer
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-    Info: Processing started: Thu Mar 21 15:29:15 2019
+    Info: Processing started: Mon Apr 01 19:31:37 2019
 Info: Command: quartus_sta DE1_base -c DE1_SOC_golden_top
 Info: qsta_default_script.tcl version: #1
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info (21077): Low junction temperature is 0 degrees C
 Info (21077): High junction temperature is 85 degrees C
-Warning (335093): TimeQuest Timing Analyzer is analyzing 12 combinational loops as latches. For more details, run the Check Timing command in the TimeQuest Timing Analyzer or view the "User-Specified and Inferred Latches" table in the Analysis & Synthesis report.
 Info (332104): Reading SDC File: 'de1_top.sdc'
 Info (332151): Clock uncertainty is not calculated until you update the timing netlist.
 Warning (332054): Assignment set_input_delay is accepted but has some problems at de1_top.sdc(4): Positional argument <targets> with value [get_ports *]: Port hex0[0] is not an input port. File: C:/EE457/lab7/de1_top.sdc Line: 4
@@ -842,11 +839,11 @@ Warning (332054): Assignment set_input_delay is accepted but has some problems a
 Warning (332054): Assignment set_output_delay is accepted but has some problems at de1_top.sdc(5): Positional argument <targets> with value [get_ports *]: Port clock_50 is not an output port. File: C:/EE457/lab7/de1_top.sdc Line: 5
     Info (332050): set_output_delay -clock { clock_50Mhz } 0 [get_ports {*}] File: C:/EE457/lab7/de1_top.sdc Line: 5
 Warning (332054): Assignment set_output_delay is accepted but has some problems at de1_top.sdc(5): Positional argument <targets> with value [get_ports *]: Port key[0] is not an output port. File: C:/EE457/lab7/de1_top.sdc Line: 5
-Warning (332054): Assignment set_output_delay is accepted but has some problems at de1_top.sdc(5): Positional argument <targets> with value [get_ports *]: Port key[2] is not an output port. File: C:/EE457/lab7/de1_top.sdc Line: 5
-Warning (332054): Assignment set_output_delay is accepted but has some problems at de1_top.sdc(5): Positional argument <targets> with value [get_ports *]: Port sw[9] is not an output port. File: C:/EE457/lab7/de1_top.sdc Line: 5
 Warning (332054): Assignment set_output_delay is accepted but has some problems at de1_top.sdc(5): Positional argument <targets> with value [get_ports *]: Port sw[8] is not an output port. File: C:/EE457/lab7/de1_top.sdc Line: 5
 Warning (332054): Assignment set_output_delay is accepted but has some problems at de1_top.sdc(5): Positional argument <targets> with value [get_ports *]: Port key[3] is not an output port. File: C:/EE457/lab7/de1_top.sdc Line: 5
+Warning (332054): Assignment set_output_delay is accepted but has some problems at de1_top.sdc(5): Positional argument <targets> with value [get_ports *]: Port sw[9] is not an output port. File: C:/EE457/lab7/de1_top.sdc Line: 5
 Warning (332054): Assignment set_output_delay is accepted but has some problems at de1_top.sdc(5): Positional argument <targets> with value [get_ports *]: Port key[1] is not an output port. File: C:/EE457/lab7/de1_top.sdc Line: 5
+Warning (332054): Assignment set_output_delay is accepted but has some problems at de1_top.sdc(5): Positional argument <targets> with value [get_ports *]: Port key[2] is not an output port. File: C:/EE457/lab7/de1_top.sdc Line: 5
 Warning (332054): Assignment set_output_delay is accepted but has some problems at de1_top.sdc(5): Positional argument <targets> with value [get_ports *]: Port sw[0] is not an output port. File: C:/EE457/lab7/de1_top.sdc Line: 5
 Warning (332054): Assignment set_output_delay is accepted but has some problems at de1_top.sdc(5): Positional argument <targets> with value [get_ports *]: Port sw[1] is not an output port. File: C:/EE457/lab7/de1_top.sdc Line: 5
 Warning (332054): Assignment set_output_delay is accepted but has some problems at de1_top.sdc(5): Positional argument <targets> with value [get_ports *]: Port sw[2] is not an output port. File: C:/EE457/lab7/de1_top.sdc Line: 5
@@ -855,121 +852,105 @@ Warning (332054): Assignment set_output_delay is accepted but has some problems 
 Warning (332054): Assignment set_output_delay is accepted but has some problems at de1_top.sdc(5): Positional argument <targets> with value [get_ports *]: Port sw[5] is not an output port. File: C:/EE457/lab7/de1_top.sdc Line: 5
 Warning (332054): Assignment set_output_delay is accepted but has some problems at de1_top.sdc(5): Positional argument <targets> with value [get_ports *]: Port sw[6] is not an output port. File: C:/EE457/lab7/de1_top.sdc Line: 5
 Warning (332054): Assignment set_output_delay is accepted but has some problems at de1_top.sdc(5): Positional argument <targets> with value [get_ports *]: Port sw[7] is not an output port. File: C:/EE457/lab7/de1_top.sdc Line: 5
-Warning (332060): Node: gen_counter:one_point_five_second_counter|term was determined to be a clock but was found without an associated clock assignment.
-    Info (13166): Latch traffic_ns_cntrl:ns_main|next_state.green_226 is being clocked by gen_counter:one_point_five_second_counter|term
-Warning (332060): Node: gen_counter:one_point_seven_five_second_counter|term was determined to be a clock but was found without an associated clock assignment.
-    Info (13166): Latch traffic_ew_cntrl:ew_main|next_state.red_235 is being clocked by gen_counter:one_point_seven_five_second_counter|term
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
 Info: Found TIMEQUEST_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
 Info: Analyzing Slow 1100mV 85C Model
-Info (332146): Worst-case setup slack is 9.717
+Info (332146): Worst-case setup slack is 10.596
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     9.717               0.000 clock_50Mhz 
-Info (332146): Worst-case hold slack is 0.321
+    Info (332119):    10.596               0.000 clock_50Mhz 
+Info (332146): Worst-case hold slack is 0.363
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     0.321               0.000 clock_50Mhz 
-Info (332146): Worst-case recovery slack is 15.282
+    Info (332119):     0.363               0.000 clock_50Mhz 
+Info (332146): Worst-case recovery slack is 13.618
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    15.282               0.000 clock_50Mhz 
-Info (332146): Worst-case removal slack is 1.078
+    Info (332119):    13.618               0.000 clock_50Mhz 
+Info (332146): Worst-case removal slack is 0.945
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     1.078               0.000 clock_50Mhz 
-Info (332146): Worst-case minimum pulse width slack is 9.216
+    Info (332119):     0.945               0.000 clock_50Mhz 
+Info (332146): Worst-case minimum pulse width slack is 9.227
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     9.216               0.000 clock_50Mhz 
+    Info (332119):     9.227               0.000 clock_50Mhz 
 Info: Analyzing Slow 1100mV 0C Model
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-Warning (332060): Node: gen_counter:one_point_five_second_counter|term was determined to be a clock but was found without an associated clock assignment.
-    Info (13166): Latch traffic_ns_cntrl:ns_main|next_state.green_226 is being clocked by gen_counter:one_point_five_second_counter|term
-Warning (332060): Node: gen_counter:one_point_seven_five_second_counter|term was determined to be a clock but was found without an associated clock assignment.
-    Info (13166): Latch traffic_ew_cntrl:ew_main|next_state.red_235 is being clocked by gen_counter:one_point_seven_five_second_counter|term
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
-Info (332146): Worst-case setup slack is 10.034
+Info (332146): Worst-case setup slack is 10.887
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    10.034               0.000 clock_50Mhz 
-Info (332146): Worst-case hold slack is 0.307
+    Info (332119):    10.887               0.000 clock_50Mhz 
+Info (332146): Worst-case hold slack is 0.366
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     0.307               0.000 clock_50Mhz 
-Info (332146): Worst-case recovery slack is 12.691
+    Info (332119):     0.366               0.000 clock_50Mhz 
+Info (332146): Worst-case recovery slack is 14.220
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    12.691               0.000 clock_50Mhz 
-Info (332146): Worst-case removal slack is 3.569
+    Info (332119):    14.220               0.000 clock_50Mhz 
+Info (332146): Worst-case removal slack is 0.879
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     3.569               0.000 clock_50Mhz 
-Info (332146): Worst-case minimum pulse width slack is 9.277
+    Info (332119):     0.879               0.000 clock_50Mhz 
+Info (332146): Worst-case minimum pulse width slack is 9.284
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     9.277               0.000 clock_50Mhz 
+    Info (332119):     9.284               0.000 clock_50Mhz 
 Info: Analyzing Fast 1100mV 85C Model
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-Warning (332060): Node: gen_counter:one_point_five_second_counter|term was determined to be a clock but was found without an associated clock assignment.
-    Info (13166): Latch traffic_ns_cntrl:ns_main|next_state.green_226 is being clocked by gen_counter:one_point_five_second_counter|term
-Warning (332060): Node: gen_counter:one_point_seven_five_second_counter|term was determined to be a clock but was found without an associated clock assignment.
-    Info (13166): Latch traffic_ew_cntrl:ew_main|next_state.red_235 is being clocked by gen_counter:one_point_seven_five_second_counter|term
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
-Info (332146): Worst-case setup slack is 13.466
+Info (332146): Worst-case setup slack is 14.218
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    13.466               0.000 clock_50Mhz 
-Info (332146): Worst-case hold slack is 0.178
+    Info (332119):    14.218               0.000 clock_50Mhz 
+Info (332146): Worst-case hold slack is 0.196
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     0.178               0.000 clock_50Mhz 
-Info (332146): Worst-case recovery slack is 14.198
+    Info (332119):     0.196               0.000 clock_50Mhz 
+Info (332146): Worst-case recovery slack is 15.429
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    14.198               0.000 clock_50Mhz 
-Info (332146): Worst-case removal slack is 2.506
+    Info (332119):    15.429               0.000 clock_50Mhz 
+Info (332146): Worst-case removal slack is 0.561
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     2.506               0.000 clock_50Mhz 
-Info (332146): Worst-case minimum pulse width slack is 9.100
+    Info (332119):     0.561               0.000 clock_50Mhz 
+Info (332146): Worst-case minimum pulse width slack is 9.104
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     9.100               0.000 clock_50Mhz 
+    Info (332119):     9.104               0.000 clock_50Mhz 
 Info: Analyzing Fast 1100mV 0C Model
-Warning (332060): Node: gen_counter:one_point_five_second_counter|term was determined to be a clock but was found without an associated clock assignment.
-    Info (13166): Latch traffic_ns_cntrl:ns_main|next_state.green_226 is being clocked by gen_counter:one_point_five_second_counter|term
-Warning (332060): Node: gen_counter:one_point_seven_five_second_counter|term was determined to be a clock but was found without an associated clock assignment.
-    Info (13166): Latch traffic_ew_cntrl:ew_main|next_state.red_235 is being clocked by gen_counter:one_point_seven_five_second_counter|term
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
-Info (332146): Worst-case setup slack is 14.025
+Info (332146): Worst-case setup slack is 14.662
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    14.025               0.000 clock_50Mhz 
-Info (332146): Worst-case hold slack is 0.169
+    Info (332119):    14.662               0.000 clock_50Mhz 
+Info (332146): Worst-case hold slack is 0.186
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     0.169               0.000 clock_50Mhz 
-Info (332146): Worst-case recovery slack is 16.422
+    Info (332119):     0.186               0.000 clock_50Mhz 
+Info (332146): Worst-case recovery slack is 15.669
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    16.422               0.000 clock_50Mhz 
-Info (332146): Worst-case removal slack is 0.699
+    Info (332119):    15.669               0.000 clock_50Mhz 
+Info (332146): Worst-case removal slack is 0.509
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     0.699               0.000 clock_50Mhz 
-Info (332146): Worst-case minimum pulse width slack is 9.064
+    Info (332119):     0.509               0.000 clock_50Mhz 
+Info (332146): Worst-case minimum pulse width slack is 9.066
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     9.064               0.000 clock_50Mhz 
-Info (332102): Design is not fully constrained for setup requirements
-Info (332102): Design is not fully constrained for hold requirements
-Info: Quartus Prime TimeQuest Timing Analyzer was successful. 0 errors, 77 warnings
-    Info: Peak virtual memory: 5159 megabytes
-    Info: Processing ended: Thu Mar 21 15:29:23 2019
+    Info (332119):     9.066               0.000 clock_50Mhz 
+Info (332101): Design is fully constrained for setup requirements
+Info (332101): Design is fully constrained for hold requirements
+Info: Quartus Prime TimeQuest Timing Analyzer was successful. 0 errors, 68 warnings
+    Info: Peak virtual memory: 5270 megabytes
+    Info: Processing ended: Mon Apr 01 19:31:45 2019
     Info: Elapsed time: 00:00:08
-    Info: Total CPU time (on all processors): 00:00:08
+    Info: Total CPU time (on all processors): 00:00:09
 
 

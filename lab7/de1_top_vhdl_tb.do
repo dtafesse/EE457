@@ -19,6 +19,7 @@
 vlib work
 vcom seven_segment_cntrl.vhd
 vcom gen_counter.vhd 
+vcom gen_double_dff.vhd
 vcom de1_top.vhd 
 vcom traffic_ns_cntrl.vhd
 vcom traffic_ew_cntrl.vhd

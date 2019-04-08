@@ -39,7 +39,14 @@ architecture struct of de1_top is
 	signal reset_n                       : std_logic;
 	signal load_counter                  : std_logic;
 	
-	signal main_one_second_counter: std_logic_vector(0 downto 0);
+	signal main_one_fourth_second_counter: std_logic_vector(0 downto 0);
+
+	signal high_sig : std_logic_vector(0 downto 0);
+
+	signal reset_stable : std_logic_vector(0 downto 0);
+	signal stable_switches : std_logic_vector(9 downto 0);
+	signal stable_keys : std_logic_vector(3 downto 0);
+
 
 	-- define the component
 	component gen_counter is
@@ -56,7 +63,20 @@ architecture struct of de1_top is
 		count	 :out std_logic_vector(wide-1 downto 0 );
 		term	 :out std_logic);
 	end component;
+
+	component gen_double_dff is
+		generic (
+			wide  :positive
+			);
+		port(
+			input : std_logic_vector(wide-1 downto 0);
+			clk : std_logic;
+			reset : std_logic;
+			output : out std_logic_vector(wide-1 downto 0)
+		);
+	end component gen_double_dff;
 	
+
 	component traffic_ns_cntrl is 
 		PORT (
 			clk, reset_a, green_timer_switch, night_mode, error_mode : IN STD_LOGIC;
@@ -75,10 +95,25 @@ architecture struct of de1_top is
 		
 		
 	begin
-	
 		-- use a name that makes sense, key(0) is our reset, push to reset
-		reset_n <= key(0);  -- key is normally high
+		reset_n <= reset_stable(0);  -- key is normally high
+		high_sig(0) <= '1';
+
+		hex1(6 downto 0) <= "1111111"; -- empty
+		hex2(6 downto 0) <= "1111111"; -- empty
+		hex3(6 downto 0) <= "1111111"; -- empty
+		hex4(6 downto 0) <= "1111111"; -- empty
 		
+		reset_struc: gen_double_dff 
+		generic map (
+			wide => 1
+			)
+		port map(
+			input => high_sig,
+			clk => clock_50,
+			reset => KEY(0),	 
+			output => reset_stable
+			);
 		
 		-- first use an instance of counter to get clock enable
 		-- never ever use the term output as clock, always use as an enable 
@@ -97,46 +132,52 @@ architecture struct of de1_top is
 				term	 => enable_pulse_every_one_fourth_second -- goes high for 1 clock cycle max value hit
 				);
 			
-		load_counter <= not key(2); -- need to invert, key is normally high		
+		load_counter <= not stable_keys(2); -- need to invert, key is normally high		
 	
-		-- this counter will count 1 seconds.			
-		one_second_counter : gen_counter 
+		stablized_sws : gen_double_dff 
 		generic map (
-			wide => 2,  -- created a two bit counter (max count would be 3) which will hold the max, 0,1,2,3 
-			max  => 3   -- .25 * 4 = 1 second thus 4 is count, if count is 4, then max is count - 1 = 3
-			)
-		port map (
-			clk	 => clock_50,
-			data	 => (others => '0'),
-			load	 => load_counter, 
-			enable   => enable_pulse_every_one_fourth_second, -- always enabled
-			reset_n	 => reset_n,
-			count	 => one_sec_count_value, -- we are not using this signal
-			term	 => enable_pulse_every_one_second -- this signal will pulse for 1 clock cycle when the cunter roles over
+			wide => 10
+		)
+		port map(
+			input => SW,
+			clk => clock_50,
+			reset => reset_n,	 
+			output => stable_switches
+		);
+
+		stablized_keys : gen_double_dff 
+		generic map (
+			wide => 4
+		)
+		port map(
+			input => KEY,
+			clk => clock_50,
+			reset => KEY(0),	 
+			output => stable_keys
 		);
 			
-
-		main_one_second_counter(0) <= enable_pulse_every_one_second;
+		main_one_fourth_second_counter(0) <= enable_pulse_every_one_fourth_second;
 	
 		ns_main: traffic_ns_cntrl PORT MAP ( 
 			clk => clock_50,
 			reset_a => reset_n,
-			green_timer_switch => SW(8), 
-			night_mode => SW(9),
-			error_mode => KEY(3),
-			time_counter => main_one_second_counter,
+			green_timer_switch => stable_switches(8), 
+			night_mode => stable_switches(9),
+			error_mode => stable_keys(3),
+			time_counter => main_one_fourth_second_counter,
 			hex_0 => hex0
 		);
 
 		ew_main: traffic_ew_cntrl PORT MAP ( 
 			clk => clock_50,
 			reset_a => reset_n,
-			red_timer_switch => SW(8), 
-			time_counter => main_one_second_counter,
-			night_mode => SW(9),
-			error_mode => KEY(3),
+			red_timer_switch => stable_switches(8), 
+			night_mode => stable_switches(9),
+			error_mode => stable_keys(3),
+			time_counter => main_one_fourth_second_counter,
 			hex_5 => hex5
 		);
+
 
 end architecture; -- end the design
 

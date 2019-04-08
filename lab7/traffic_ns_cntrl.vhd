@@ -47,7 +47,7 @@ ARCHITECTURE logic OF traffic_ns_cntrl IS
 
 		-- Create sequential process to control state transitions by making current_state equal to next state on
 		--	rising edge transitions; Use asynchronous clear control
-		PROCESS (clk, reset_a, time_counter, green_timer_switch, night_mode, error_mode, error_mode_active, night_mode_activated)
+		PROCESS (clk, reset_a)
             variable temp_time_counter : integer;		
         BEGIN
             temp_time_counter := to_integer(unsigned(time_counter));
@@ -79,14 +79,14 @@ ARCHITECTURE logic OF traffic_ns_cntrl IS
                             count <= 0; 
                             night_mode_activated <= '0';
                         elsif count < 44 then  -- in yellow, 1.5 seconds so up to 11.5 seconds
-                            -- .25 * 6 = 1.5 seconds, count = 6, max is 6-1 = 5, therefore 10 sec + 1.5 sec -> 39 + 5 = 44
+                            -- .25 * 46 = 11.5 seconds, max = 46 - 1 = 45 - 11.5 sec
                             current_state <= yellow;
                             count <= count + 1; 
-                        elsif count < 71 then -- in red for 7 seconds so up to 18.5 seconds
-                            -- 0.25 * 28 = 7 seconds has passed, count is 28, thus max is 27, 11.5 sec + 7 sec = 44 + 27= 71
+                        elsif count < 73 then -- in red for 7 seconds so up to 18.5 seconds
+                            -- 0.25 * 74 = 7 seconds has passed, count is 74, thus max is 73
                             current_state <= red;
                             count <= count + 1; 
-                        elsif count >= 71 then 
+                        elsif count >= 73 then 
                             -- went through one cycle, reset the count back to zero;
                             count <= 0; 
                         end if;
@@ -104,15 +104,15 @@ ARCHITECTURE logic OF traffic_ns_cntrl IS
                             current_state <= green;
                             count <= 0; 
                             night_mode_activated <= '0';
-                        elsif count < 34 then -- in yellow, 1.5 seconds
-                            -- .25 * 6 = 1.5 seconds, count = 6, max is 6-1 = 5, therefore 7.5 + 1.5 -> 29 + 5 = 34
+                        elsif count < 35 then -- in yellow, 1.5 seconds, so up to 9 seconds
+                            -- .25 * 36 = 9 seconds, count = 36, max is 36-1 = 35
                             current_state <= yellow;
                             count <= count + 1; 
-                        elsif count < 61 then 
-                            -- 0.25 * 28 = 7 seconds has passed, count is 28, thus max is 27, 9 seconds + 7 seconds = 44 + 27= 71
+                        elsif count < 63 then -- in red for 7 seconds, so up to 9 + 7 = 16 seconds
+                            -- 0.25 * 64 = 16 seconds has passed, count is 64, thus max is 63
                             current_state <= red;
                             count <= count + 1; 
-                        elsif count >= 61 then 
+                        elsif count >= 63 then 
                             -- went through one cycle, reset the count back to zero;
                             count <= 0; 
                         end if;
@@ -125,13 +125,13 @@ ARCHITECTURE logic OF traffic_ns_cntrl IS
 		BEGIN
             CASE current_state IS
                 WHEN red => 
-                    hex_0(6 downto 0) <= "0111001"; -- r      
+                    hex_0(6 downto 0) <= "1001110"; -- r     
                 WHEN green => 
-                    hex_0(6 downto 0) <= "0000100"; -- g
+                    hex_0(6 downto 0) <= "0000010"; -- G
                 WHEN yellow => 
-                    hex_0(6 downto 0) <= "1001100"; -- y  
+                    hex_0(6 downto 0) <= "0011001"; -- y  
                 WHEN flash_y =>
-                    hex_0(6 downto 0) <= "1001100"; -- y  
+                    hex_0(6 downto 0) <= "0011001"; -- y  
                 WHEN others =>
                     hex_0(6 downto 0) <= "1111111"; -- empty
             END CASE;		

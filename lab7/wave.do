@@ -22,14 +22,6 @@ add wave -noupdate /de1_top_tb/dut/ew_main/current_state
 add wave -noupdate /de1_top_tb/dut/ew_main/next_state
 add wave -noupdate /de1_top_tb/dut/ew_main/error_mode_active
 add wave -noupdate /de1_top_tb/dut/ew_main/count
-add wave -noupdate /de1_top_tb/dut/one_second_counter/clk
-add wave -noupdate /de1_top_tb/dut/one_second_counter/data
-add wave -noupdate /de1_top_tb/dut/one_second_counter/load
-add wave -noupdate /de1_top_tb/dut/one_second_counter/enable
-add wave -noupdate /de1_top_tb/dut/one_second_counter/reset_n
-add wave -noupdate /de1_top_tb/dut/one_second_counter/count
-add wave -noupdate /de1_top_tb/dut/one_second_counter/term
-add wave -noupdate /de1_top_tb/dut/one_second_counter/i_count
 add wave -noupdate /de1_top_tb/aclr_n
 add wave -noupdate /de1_top_tb/clk
 add wave -noupdate /de1_top_tb/sw
@@ -42,8 +34,24 @@ add wave -noupdate /de1_top_tb/hex3
 add wave -noupdate /de1_top_tb/hex4
 add wave -noupdate /de1_top_tb/hex5
 add wave -noupdate /de1_top_tb/dut/ns_main/night_mode_activated
+add wave -noupdate /de1_top_tb/dut/stablized_sws/input
+add wave -noupdate /de1_top_tb/dut/stablized_sws/clk
+add wave -noupdate /de1_top_tb/dut/stablized_sws/reset
+add wave -noupdate /de1_top_tb/dut/stablized_sws/output
+add wave -noupdate /de1_top_tb/dut/stablized_keys/input
+add wave -noupdate /de1_top_tb/dut/stablized_keys/clk
+add wave -noupdate /de1_top_tb/dut/stablized_keys/reset
+add wave -noupdate /de1_top_tb/dut/stablized_keys/output
+add wave -noupdate /de1_top_tb/dut/reset_struc/input
+add wave -noupdate /de1_top_tb/dut/reset_struc/clk
+add wave -noupdate /de1_top_tb/dut/reset_struc/reset
+add wave -noupdate /de1_top_tb/dut/reset_struc/output
+add wave -noupdate /de1_top_tb/dut/reset_struc/first_meta_output
+add wave -noupdate /de1_top_tb/dut/ew_main/night_mode_activated
+add wave -noupdate /de1_top_tb/dut/ns_main/error_mode_active
+add wave -noupdate /de1_top_tb/dut/ew_main/error_mode_active
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {100350 ns} 0}
+WaveRestoreCursors {{Cursor 1} {18460 ns} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 308
 configure wave -valuecolwidth 100
