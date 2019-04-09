@@ -32,9 +32,10 @@ end de1_top;
 architecture struct of de1_top is
 
 	signal clk : std_logic;
-	signal q_data: std_logic_vector(3 downto 0);
+	signal q_dt: std_logic_vector(3 downto 0);
 	signal address: std_logic_vector(4 downto 0);
 	signal data: std_logic_vector(3 downto 0);
+	signal upper_address: std_logic_vector(3 downto 0);
 
 	-- define the component	
 	component seven_segment_cntrl IS
@@ -76,18 +77,20 @@ architecture struct of de1_top is
 		-- for lab7 memory lab, use key (0) as clock for parts 2 
 		clk<=key(0); 
 		
+		upper_address <= "000" & address(4);
+		
 		ram: ram32x4
 			port map (
 				address => address,
 				clock => clk,
 				data => data,
 				wren => sw(9),
-				q => q_data
+				q => q_dt
 			);
 		
 		hex0segment: seven_segment_cntrl
 			port map (
-				input => q_data,
+				input => q_dt,
 				hex => hex0
 			);
 		hex2segment: seven_segment_cntrl
@@ -102,7 +105,7 @@ architecture struct of de1_top is
 			);
 		hex5segment: seven_segment_cntrl
 			port map (
-				input => "000" & address(4),
+				input => upper_address,
 				hex => hex5
 			);
 		

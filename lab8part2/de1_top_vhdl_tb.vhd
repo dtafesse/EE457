@@ -68,22 +68,110 @@ begin
 		-- the simulation time
 		assert false report "starting test vectors" severity note;
 	
-		wait for 5*clk_cycle;
+		wait for 3*clk_cycle;
 	    assert false report "just waited 5 clock cycles" severity note;
 	  
-		wait for 10000*clk_cycle; --  wait for a number of clock cycles,
+		-- READING from addresses, initial!
+		-- -- a-i
+		-- sw <= "0000110000"; -- reading from address decimal 3/hex "03"
+		-- key <= "1110" ; -- clock in 
+		-- wait for 1*clk_cycle; 
 		
-		-- start adding vectors
-		-- add more vectors to test your requirements
-		-- stop the simulation with an assert with severity failure, 
-		-- the you can use "run -all" from the modelsim transcript window
+		-- key <= "1111" ; -- clock out 
+		-- wait for 1*clk_cycle; 
+
+		-- -- a-ii 
+		-- sw <= "0011100000"; -- reading from address decimal 14/hex "0E"
+		-- key <= "1110" ; -- clock in 
+		-- wait for 1*clk_cycle; 
 		
-		-- "restart -f" from the modelsim transcript window will reset the simulation back to 0n then
-		-- use "run -all" from the transcript window.
-		-- the resart -f can be used when you are not changing any VHDL and only adding signals into the wave
-		-- window to debug.  make sure you save the wave.do file
-		-- if you change any VHDL, including the testbench, then you will need to re-run the *_tb.do tcl file
+		-- key <= "1111" ; -- clock out 
+		-- wait for 1*clk_cycle; 
+
+		-- -- a-iii
+		-- sw <= "0110100000"; -- reading from address decimal 26/hex "1A"
+		-- key <= "1110" ; -- clock in 
+		-- wait for 1*clk_cycle; 
 		
+		-- key <= "1111" ; -- clock out 
+		-- wait for 1*clk_cycle; 
+
+		-- -- a-iv
+		-- sw <= "0110110000"; -- reading from address decimal 27/hex "1B"
+		-- key <= "1110" ; -- clock in 
+		-- wait for 1*clk_cycle; 
+		
+		-- key <= "1111" ; -- clock out 
+		-- wait for 1*clk_cycle; 
+
+		-- WRITING 
+		-- a
+		sw <= "1000111100"; -- write "1100" to address decimal 3/hex "03"
+		key <= "1110" ; -- clock in 
+		wait for 1*clk_cycle; 
+		
+		key <= "1111" ; -- clock out 
+		wait for 1*clk_cycle; 
+
+		-- b
+		sw <= "1011100011"; -- write "0011" to address decimal 14/hex "0E"
+		key <= "1110" ; -- clock in 
+		wait for 1*clk_cycle; 
+		
+		key <= "1111" ; -- clock out 
+		wait for 1*clk_cycle; 
+
+		-- c
+		sw <= "1110101111"; -- write "1111" to address decimal 26/hex "1A"
+		key <= "1110" ; -- clock in 
+		wait for 1*clk_cycle; 
+		
+		key <= "1111" ; -- clock out 
+		wait for 1*clk_cycle; 
+
+		-- d
+		sw <= "1110110101"; -- write "0101" to address decimal 27/hex "1B"
+		key <= "1110" ; -- clock in 
+		wait for 1*clk_cycle; 
+		
+		key <= "1111" ; -- clock out 
+		wait for 1*clk_cycle; 
+
+		-- READING after writing
+		-- i
+		sw <= "0000110000"; -- reading from address decimal 3/hex "03"
+		key <= "1110" ; -- clock in 
+		wait for 1*clk_cycle; 
+		
+		key <= "1111" ; -- clock out 
+		wait for 1*clk_cycle; 
+
+		-- ii 
+		sw <= "0011100000"; -- reading from address decimal 14/hex "0E"
+		key <= "1110" ; -- clock in 
+		wait for 1*clk_cycle; 
+		
+		key <= "1111" ; -- clock out 
+		wait for 1*clk_cycle; 
+
+		-- iii
+		sw <= "0110100000"; -- reading from address decimal 26/hex "1A"
+		key <= "1110" ; -- clock in 
+		wait for 1*clk_cycle; 
+		
+		key <= "1111" ; -- clock out 
+		wait for 1*clk_cycle; 
+
+		-- iv
+		sw <= "0110110000"; -- reading from address decimal 27/hex "1B"
+		key <= "1110" ; -- clock in 
+		wait for 1*clk_cycle; 
+		
+		key <= "1111" ; -- clock out 
+		wait for 1*clk_cycle; 
+
+
+
 		assert false report "******* This is not a Failure it is the end of the simulation ********" severity failure;
 		end process;
 
