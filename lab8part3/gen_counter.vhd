@@ -9,11 +9,11 @@ generic (
 		max  : positive  -- what is the max value of the counter ( modulus )
 		);
 port (
-		clk	 :in  std_logic; -- system clock
+		clk	     :in  std_logic; -- system clock
 		data	 :in  std_logic_vector( wide-1 downto 0 ); -- data in for parallel load, use unsigned(data) to cast to unsigned
 		load	 :in  std_logic; -- signal to load data into i_count i_count <= unsigned(data);
-		enable :in  std_logic; -- clock enable
-		reset	 :in  std_logic; -- reset to zeros use i_count <= (others => '0' ) since size depends on generic
+		enable   :in  std_logic; -- clock enable
+		reset_n	 :in  std_logic; -- reset to zeros use i_count <= (others => '0' ) since size depends on generic
 		count	 :out std_logic_vector( wide-1 downto 0 ); -- count out
 		term	 :out std_logic -- maximum count is reached
 		);
@@ -33,8 +33,8 @@ count <= std_logic_vector(i_count); -- we type cast the count back to std_logic_
 -- the load signal is high, and has priority
 -- once the counter is enabled the counter will start counting until it rolls over
 -- or the max count is met. 
-counter: process(clk, reset) begin
-  if (reset='1') then -- active high reset
+counter: process(clk, reset_n) begin
+  if (reset_n='0') then -- active low reset
 	 i_count <= (others => '0'); -- set counter to 0's
 	 term    <= '0';  -- want the terminal count off on reset
   elsif (rising_edge(clk)) then
@@ -43,7 +43,7 @@ counter: process(clk, reset) begin
 	 	   i_count <= unsigned(data);
     elsif (enable = '1') then -- if enabled the counter is running.
 	   if (i_count=max) then -- the max value is hit, synchronously set to '0's
-		  term <='1'; -- we only want this active for 1 clock cycle
+		  term <='1'; -- we only want this terminal count active for 1 clock cycle
 	     i_count<=(others=>'0');
 	   else -- increment the counter
 		  term <= '0'; -- disable to term count, so only high for 1 clock cycle
@@ -52,9 +52,6 @@ counter: process(clk, reset) begin
     end if;
    end if;
 end process;
-
-
-
 
 end;
 				

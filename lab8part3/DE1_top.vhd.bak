@@ -33,9 +33,8 @@ architecture struct of de1_top is
 
 	-- define signals to be used
 	signal enable_pulse_every_second  : std_logic;
-	signal enable_pulse 	: std_logic;
 	signal reset_n                      : std_logic;
-	signal first_meta_sw_output : STD_LOGIC_VECTOR (9 downto 0);
+	signal first_meta_output : STD_LOGIC_VECTOR (9 downto 0);
 	signal sw_output : STD_LOGIC_VECTOR (9 downto 0);
 	signal load_counter                  : std_logic;
 	signal read_address 	: std_logic_vector(4 downto 0);
@@ -51,7 +50,7 @@ architecture struct of de1_top is
 		-- Begin port declaration
 		port (
 			-- Declare data input "input"
-			input : in STD_LOGIC_VECTOR(3 downto 0);
+			input : in unsigned(3 downto 0);
 			-- Declare the seven segment output
 			hex   : out std_logic_vector(6 downto 0));
 	-- End entity		
@@ -80,7 +79,7 @@ architecture struct of de1_top is
 			data	 :in  std_logic_vector(wide-1 downto 0 );
 			load	 :in  std_logic;
 			enable :in  std_logic;
-			reset_n	 :in  std_logic;
+			reset	 :in  std_logic;
 			count	 :out std_logic_vector(wide-1 downto 0 );
 			term	 :out std_logic);
 		end component;
@@ -103,6 +102,19 @@ architecture struct of de1_top is
 		read_address_lower <= read_address(3 downto 0);
 		read_address_upper <= "000" & read_address(4);
 		
+		
+		-- Double D Flip Flop
+		process (sw, clock_50, reset_n) is
+		begin
+			if reset_n = '0' then
+					first_meta_sw_output <= (others => '0');
+					sw_output <= (others => '0');
+			elsif rising_edge(clock_50) then
+					first_meta_sw_output <= sw;
+					sw_output <= first_meta_sw_output;
+			end if;
+		end process;
+
 		large_counter : gen_counter
 		generic map (
 			wide => simulation_wide, 
@@ -114,7 +126,8 @@ architecture struct of de1_top is
 			enable   => '1',   -- always enabled
 			data => (others => '0'),
 			count	 => open,  -- we are not using this signal
-			reset_n => reset_n,
+			reset => reset_n,
+			enable => '1',
 			term => enable_pulse_every_second
 		);
 
@@ -129,25 +142,12 @@ architecture struct of de1_top is
 		port map (
 			clk	 => clock_50,
 			data	 => (others => '0'),
-			enable   => enable_pulse_every_second,
-			load => '0', 
+			load	 => load_counter, 
+			enable   => enable_pulse_every_second, 
 			reset_n	 => reset_n,
-			count	 => read_address,
-			term	 => enable_pulse
+			count	 => read_address
 		);
 
-		-- Double D Flip Flop
-		process (sw, clock_50, reset_n) is
-			begin
-				if reset_n = '0' then
-						first_meta_sw_output <= (others => '0');
-						sw_output <= (others => '0');
-				elsif rising_edge(clock_50) then
-						first_meta_sw_output <= sw;
-						sw_output <= first_meta_sw_output;
-				end if;
-			end process;
-		
 		ram : ram32x4
 		port map(
 			clock => clock_50,

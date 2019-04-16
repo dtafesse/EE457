@@ -60,7 +60,7 @@ begin
 	-- make sure you change the component instantition below for Part IV
 	
 		sw     <= "0000000000"; -- drive all the switch inputs to a 0
-		key    <= "1111";   -- default state on the board, all '1's
+		key    <= "1110";   -- default state on the board, all '1's
 		wait for 5 ns; 			-- wait for a fraction of the clock so stimulus is not occuring on clock edges
  
 	    -- use the assert statement so you know where to go look in the simulation to make
@@ -68,21 +68,34 @@ begin
 		-- the simulation time
 		assert false report "starting test vectors" severity note;
 	
-		wait for 5*clk_cycle;
+		wait for 3*clk_cycle;
 	    assert false report "just waited 5 clock cycles" severity note;
-	  
-		wait for 10000*clk_cycle; --  wait for a number of clock cycles,
-		
-		-- start adding vectors
-		-- add more vectors to test your requirements
-		-- stop the simulation with an assert with severity failure, 
-		-- the you can use "run -all" from the modelsim transcript window
-		
-		-- "restart -f" from the modelsim transcript window will reset the simulation back to 0n then
-		-- use "run -all" from the transcript window.
-		-- the resart -f can be used when you are not changing any VHDL and only adding signals into the wave
-		-- window to debug.  make sure you save the wave.do file
-		-- if you change any VHDL, including the testbench, then you will need to re-run the *_tb.do tcl file
+	  	key <= "1111" ;
+
+		-- READING from addresses, initial!
+		-- 1)
+		-- sw <= "0000000000";
+		-- wait for 500*clk_cycle;
+
+		-- WRITING 
+		-- 2-a)
+		sw <= "1000111100"; -- write "1100" to address decimal 3/hex "03"
+		wait for 20*clk_cycle; 
+
+		-- -- b
+		-- sw <= "1011100011"; -- write "0011" to address decimal 14/hex "0E"
+		-- wait for 20*clk_cycle; 
+
+		-- -- c
+		-- sw <= "1110101111"; -- write "1111" to address decimal 26/hex "1A"
+		-- wait for 20*clk_cycle; 
+
+		-- -- d
+		-- sw <= "1110110101"; -- write "0101" to address decimal 27/hex "1B"
+		-- wait for 20*clk_cycle; 
+
+		sw <= "0000000000"; -- read
+		wait for 500*clk_cycle;
 		
 		assert false report "******* This is not a Failure it is the end of the simulation ********" severity failure;
 		end process;
@@ -96,7 +109,7 @@ generic map (
 		simulation_max  => 10 -- have it only count to 10 for shorter simulation
 		)
 port map (
-    CLOCK_50 => key(0),--clk, --for PartIII of the Memory lab, change to clk as key(0) will be the reset
+    CLOCK_50 => clk,
    -- 7 Segment Display
 	HEX0 => hex0,--		:out	std_logic_vector( 6 downto 0); -- right most
 	HEX1 => hex1,--		:out	std_logic_vector( 6 downto 0);	
